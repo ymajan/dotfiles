@@ -1,5 +1,4 @@
-
-;;; my org settings
+;; my org settings
 (use-package org
   :custom
   ;; Set up directory and file paths first

@@ -1,12 +1,3 @@
-;; This is an operating system configuration generated
-;; by the graphical installer.
-;;
-;; Once installation is complete, you can learn and modify
-;; this file to tweak the system configuration, and pass it
-;; to the 'guix system reconfigure' command to effect your changes.
-;; Indicate which modules to import to access the variables
-;; used in this configuration.
-
 (use-modules
   (gnu)
   (gnu services)
@@ -61,6 +52,7 @@
     				  "openssh"
     				  "git"
 				  "gitg"
+				  "direnv"
                		          "ripgrep"
                			  "findutils"
                			  "fd"
