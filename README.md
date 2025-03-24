@@ -1,7 +1,8 @@
 # WIP!
 
-System symlinks
+GNU Geeks
 
+System symlinks
 cd to /etc and symlink the expected config.scm
 ```
 sudo ln -s /home/ymajan/count_fig/geeks/system.scm config.scm
@@ -16,4 +17,9 @@ User symlinks
 home.scm: no default file path
 home-channels.scm: symlinks to ~/.config/guix/channels.scm, configure by home.scm
 
-Notes on Mackos
+
+MackOS
+~/.zprofile symlink
+```
+ln -s ~/count_fig/macos/zprofile ~/.zprofile
+```
