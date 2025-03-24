@@ -3,7 +3,7 @@
   :custom
   (org-roam-db-location "~/Documents/Codex/Org/Roameo/org-roam.db")
   (org-roam-directory (concat (file-name-as-directory org-directory) "Roameo"))
-  (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Annals"))
+  (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Dailies"))
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere t)
   (org-roam-db-update-on-save t)
@@ -50,7 +50,7 @@
 
 ;; tag new nodes as zygoat if not a journal file
 (defun ymajan/tag-new-node-as-zygoat ()
-  (unless (string-match-p "Annals" (buffer-file-name))
+  (unless (string-match-p "Dailies" (buffer-file-name))
     (org-roam-tag-add '("zygoat"))))
 
 (add-hook 'org-roam-capture-new-node-hook #'ymajan/tag-new-node-as-zygoat)
