@@ -1,7 +1,7 @@
 *.ss~
 *.ss#*
 .#*.ss
-
+.sync_*
 *.scm~
 *.scm#*
 .#*.scm
