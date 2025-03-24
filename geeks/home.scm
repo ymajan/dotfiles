@@ -4,7 +4,7 @@
 ;; need to capture the channels being used, as returned by "guix describe".
 ;; See the "Replicating Guix" section in the manual.
 
-(define-module (guix-home-modules)
+(define-module (geeks home)
   ;; GNU basics
   #:use-module (gnu services)
   #:use-module (gnu system shadow)
@@ -18,7 +18,9 @@
   ;; Packages
   #:use-module (gnu packages)
   #:use-module (gnu packages shells)
-  #:use-module (nongnu packages mozilla))
+  #:use-module (nongnu packages mozilla)
+  ;; Export the configuration
+  #:export (home-configuration))
 
 ;; Define channels configuration to be used by the home-environment
 (define home-channels
@@ -32,12 +34,6 @@
      (make-channel-introduction
       "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
       (openpgp-fingerprint "2A39 3FFF 68F4 EF7A 3D29 12AF 6F51 20A0 22FB B2D5"))))
-
-   (channel
-    ;; chromium with widevine
-    (name 'guix-chromium)
-    (url "https://gitlab.com/mbakke/guix-chromium.git")
-    (branch "master"))
 
    (channel
     ;; science packages (FOSS)
@@ -58,38 +54,6 @@
       (openpgp-fingerprint "CA4F 8CF4 37D7 478F DA05 5FD4 4213 7701 1A37 8446"))))
 
    (channel
-    ;; binary packages (e.g., flatpak packages)
-    (name 'bin-guix)
-    (url "https://github.com/ieugen/bin-guix")
-    (branch "main")
-    ;; Enable signature verification: TBA
-    )
-
-   (channel
-    ;; experimental: wakatime?!
-    (name 'rosenthal)
-    (url "https://codeberg.org/hako/rosenthal.git")
-    (branch "trunk")
-    (introduction
-     (make-channel-introduction
-      "7677db76330121a901604dfbad19077893865f35"
-      (openpgp-fingerprint "13E7 6CD6 E649 C28C 3385 4DF5 5E5A A665 6149 17F7"))))
-
-   (channel
-    ;; extra packages (mostly for WSL2)
-    (name 'giuliano108-guix-packages)
-    (url "https://github.com/giuliano108/guix-packages"))
-
-   (channel
-    ;; Rust binary toolchain channel for Guix
-    (name 'rustup)
-    (url "https://github.com/declantsien/guix-rustup")
-    (introduction
-     (make-channel-introduction
-      "325d3e2859d482c16da21eb07f2c6ff9c6c72a80"
-      (openpgp-fingerprint "F695 F39E C625 E081 33B5 759F 0FC6 8703 75EF E2F5"))))
-
-   (channel
     ;; guix crypto stuff
     (name 'crypto)  ; short name for nicer guix pull output
     (url "https://codeberg.org/attila.lendvai/guix-crypto.git")
@@ -107,44 +71,40 @@
    ;; Include default Guix channels
    %default-channels))
 
-(define home-config
-  (home-environment
-   ;; Specify the packages to appear in your Home profile.
-   (packages (specifications->packages
-              (list "zsh"
-                    "rbw"
-                    "vscodium"
-                    "conda"
-                    "python"
-                    "python-ta-lib"
-                    "ta-lib"
-                    "gcc-toolchain"
-                    "linux-libre-headers"
-                    "texlive-scheme-basic"   ;; anki
-                    "texlive-dvipng"         ;; anki
-                    "texlive-dvisvgm"        ;; anki - also basic one
-                    "flatpak"
-                    "nextcloud-client"
-                    "google-chrome-stable"
-                    "r-mathpix")))
-   ;; Configure the Home services.
-   (services
+(home-environment
+  (packages (specifications->packages
+            (list "zsh"
+                  "rbw"
+                  "vscodium"
+                  "conda"
+                  "python"
+                  "python-ta-lib"
+                  "ta-lib"
+                  "gcc-toolchain"
+                  "linux-libre-headers"
+                  "texlive-scheme-basic"   ;; anki
+                  "texlive-dvipng"         ;; anki
+                  "texlive-dvisvgm"        ;; anki - also basic one
+                  "flatpak"
+                  "nextcloud-client"
+                  "google-chrome-stable")))
+  (services
     (append
-     (list
-      (simple-service 'extended-env-vars-service
+      (list
+        (simple-service 'extended-env-vars-service
                       home-environment-variables-service-type
-                      `(("PATH" . "/home/ymajan/.config/emacs/bin:/home/ymajan/.local/bin:$PATH")
+                      `(("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$PATH")
                         ("SHELL" . ,(file-append zsh "/bin/zsh"))
-                        ("XDG_DATA_DIRS" . "/var/lib/flatpak/exports/share:/home/ymajan/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
+                        ("XDG_DATA_DIRS" . "/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
 
       ;; Add a service to configure channels
       (service home-channels-service-type
                home-channels)
 
+      ;; Use local-file with relative paths where possible
       (service home-files-service-type
                `((".guile" ,%default-dotguile)
-                 (".Xdefaults" ,%default-xdefaults)
-                 (".authinfo.gpg" ,(local-file "/home/ymajan/count_fig/dots/authinfo.gpg"))))
+                 (".Xdefaults" ,%default-xdefaults)))
 
       (service home-xdg-configuration-files-service-type
                `(("gdb/gdbinit" ,%default-gdbinit)
@@ -153,7 +113,6 @@
       (service home-zsh-service-type
                (home-zsh-configuration
                 (environment-variables
-                 `(("DOOMDIR" . "/home/ymajan/count_fig/dots/doom/") ;; we could also copy the files over, but changes aren't reflexive
-                   )))))
+                 `(("DOOMDIR" . "$HOME/count_fig/dots/doom/"))))))
 
-     %base-home-services))))
+    %base-home-services)))
