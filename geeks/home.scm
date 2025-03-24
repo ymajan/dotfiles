@@ -4,23 +4,17 @@
 ;; need to capture the channels being used, as returned by "guix describe".
 ;; See the "Replicating Guix" section in the manual.
 
-(define-module (geeks home)
-  ;; GNU basics
-  #:use-module (gnu services)
-  #:use-module (gnu system shadow)
-  #:use-module (guix gexp)
-  #:use-module (guix channels)
-  ;; GNU Home
-  #:use-module (gnu home)
-  #:use-module (gnu home services)
-  #:use-module (gnu home services guix)
-  #:use-module (gnu home services shells)
-  ;; Packages
-  #:use-module (gnu packages)
-  #:use-module (gnu packages shells)
-  #:use-module (nongnu packages mozilla)
-  ;; Export the configuration
-  #:export (home-configuration))
+(use-modules (gnu services)
+             (gnu system shadow)
+             (guix gexp)
+             (guix channels)
+             (gnu home)
+             (gnu home services)
+             (gnu home services guix)
+             (gnu home services shells)
+             (gnu packages)
+             (gnu packages shells)
+             (nongnu packages mozilla))
 
 ;; Define channels configuration to be used by the home-environment
 (define home-channels
