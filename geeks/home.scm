@@ -128,7 +128,7 @@
       (service home-files-service-type
                `((".guile" ,%default-dotguile)
                  (".Xdefaults" ,%default-xdefaults)
-                 (".authinfo.gpg" ,(local-file "$HOME/count_fig/dots/authinfo.gpg"))))
+                 (".authinfo.gpg" ,(local-file "/home/ymajan/count_fig/dots/authinfo.gpg"))))
       
       (service home-xdg-configuration-files-service-type
                `(("gdb/gdbinit" ,%default-gdbinit)
