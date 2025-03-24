@@ -1,4 +1,4 @@
-# Configuration Files For Mackos and GNU Geeks
+# WIP!
 
 Notes on GNU Geeks
 symlink /etc/config.scm to system.scm and /etc/guix/channels.scm to channels.scm
