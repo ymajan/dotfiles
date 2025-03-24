@@ -6,7 +6,7 @@ eval "$(conda "shell.$(basename "${SHELL}")" hook)"
 
 # Doom Emacs
 export PATH="$HOME/.config/emacs/bin:$PATH"
-export DOOMDIR="$HOME/dotfiles/config/doom"
+export DOOMDIR="$HOME/count_fig/dots/doom"
 
 # Guile Paths
 export GUILE_LOAD_PATH="/opt/homebrew/share/guile/site/3.0"
