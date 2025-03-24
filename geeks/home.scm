@@ -128,7 +128,7 @@
       (service home-files-service-type
                `((".guile" ,%default-dotguile)
                  (".Xdefaults" ,%default-xdefaults)
-                 (".authinfo.gpg" ,(local-file "/home/ymajan/geekpad/jay/dotfiles/authinfo.gpg"))))
+                 (".authinfo.gpg" ,(local-file "$HOME/count_fig/dots/authinfo.gpg"))))
       
       (service home-xdg-configuration-files-service-type
                `(("gdb/gdbinit" ,%default-gdbinit)
@@ -138,10 +138,7 @@
       (service home-zsh-service-type
                (home-zsh-configuration
                 (environment-variables
-                 `(("DOOMDIR" . "$HOME/geekpad/jay/dotfiles/config/doom")
-                   ("TWSQROOT" . "$HOME/Documents/Codex/Lab/WSQ/Final/MyTWSQ")
-                   ;; ("TA_LIBRARY_PATH" . "$(guix build ta-lib)/lib")
-                   ;; ("TA_INCLUDE_PATH" . "$(guix build ta-lib)/include")
+                 `(("DOOMDIR" . "$HOME/count_fig/dots/doom/") ;; we could also copy the files over, but changes aren't reflexive
                    )))))
 
      %base-home-services))))
