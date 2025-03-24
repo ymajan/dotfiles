@@ -18,49 +18,57 @@
 
 ;; Define channels configuration to be used by the home-environment
 (define home-channels
-  (list
-   (channel
-    ;; nonguix channels for more optimized packages
-    (name 'nonguix)
-    (url "https://gitlab.com/nonguix/nonguix")
-    ;; Enable signature verification for nonguix:
-    (introduction
-     (make-channel-introduction
+  (append 
+  (list (channel
+  (name 'nonguix)
+  (url "https://gitlab.com/nonguix/nonguix")
+  (branch "master")
+  (introduction
+    (make-channel-introduction
       "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
-      (openpgp-fingerprint "2A39 3FFF 68F4 EF7A 3D29 12AF 6F51 20A0 22FB B2D5"))))
-
-   (channel
-    ;; science packages (FOSS)
-    (name 'guix-science)
-    (url "https://codeberg.org/guix-science/guix-science.git")
-    (introduction
-     (make-channel-introduction
+      (openpgp-fingerprint
+        "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
+(channel
+  (name 'guix-science)
+  (url "https://codeberg.org/guix-science/guix-science.git")
+  (branch "master")
+  (introduction
+    (make-channel-introduction
       "b1fe5aaff3ab48e798a4cce02f0212bc91f423dc"
-      (openpgp-fingerprint "CA4F 8CF4 37D7 478F DA05 5FD4 4213 7701 1A37 8446"))))
-
-   (channel
-    ;; science packages (non-free)
-    (name 'guix-science-nonfree)
-    (url "https://codeberg.org/guix-science/guix-science-nonfree.git")
-    (introduction
-     (make-channel-introduction
+      (openpgp-fingerprint
+        "CA4F 8CF4 37D7 478F DA05  5FD4 4213 7701 1A37 8446"))))
+(channel
+  (name 'guix-science-nonfree)
+  (url "https://codeberg.org/guix-science/guix-science-nonfree.git")
+  (branch "master")
+  (introduction
+    (make-channel-introduction
       "58661b110325fd5d9b40e6f0177cc486a615817e"
-      (openpgp-fingerprint "CA4F 8CF4 37D7 478F DA05 5FD4 4213 7701 1A37 8446"))))
-
-   (channel
-    ;; guix crypto stuff
-    (name 'crypto)  ; short name for nicer guix pull output
-    (url "https://codeberg.org/attila.lendvai/guix-crypto.git")
-    (branch "main")
-    (introduction
-     (make-channel-introduction
+      (openpgp-fingerprint
+        "CA4F 8CF4 37D7 478F DA05  5FD4 4213 7701 1A37 8446"))))
+(channel
+  (name 'crypto)
+  (url "https://codeberg.org/attila.lendvai/guix-crypto.git")
+  (branch "main")
+  (introduction
+    (make-channel-introduction
       "a6a78768c2f9d0f0e659b0788001e37e23dc26e4"
-      (openpgp-fingerprint "69DA 8D74 F179 7AD6 7806 EE06 FEFA 9FE5 5CF6 E3CD"))))
+      (openpgp-fingerprint
+        "69DA 8D74 F179 7AD6 7806  EE06 FEFA 9FE5 5CF6 E3CD"))))
+(channel
+  (name 'guix-cran)
+  (url "https://github.com/guix-science/guix-cran.git")
+  (branch "master"))
+(channel
+  (name 'guix)
+  (url "https://git.savannah.gnu.org/git/guix.git")
+  (branch "master")
+  (introduction
+    (make-channel-introduction
+      "9edb3f66fd807b096b48283debdcddccfea34bad"
+      (openpgp-fingerprint
+        "BBB0 2DDF 2CEA F6A8 0D1D  E643 A2A0 6DF2 A33A 54FA")))))
 
-   (channel
-    ;; all R packages
-    (name 'guix-cran)
-    (url "https://github.com/guix-science/guix-cran.git"))
 
    ;; Include default Guix channels
    %default-channels))
