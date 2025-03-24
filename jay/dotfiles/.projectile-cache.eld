@@ -1,1 +1,0 @@
-(".gitignore" "LICENSE" "README.md" "authinfo.gpg" "config/doom/bombaclatt/macos-modifiers.el" "config/doom/bombaclatt/note-taking.el" "config/doom/bombaclatt/org-mode.el" "config/doom/bombaclatt/ref-management.el" "config/doom/config.el" "config/doom/custom.el" "config/doom/init.el" "config/doom/packages.el" "macos/.zprofile")
