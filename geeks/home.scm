@@ -44,12 +44,9 @@
    (services
     (append
      (list
-      ;; Channel configuration moved to separate file: home-channels.scm
-      ;; which should be symlinked to ~/.config/guix/channels.scm
-      
       (simple-service 'extended-env-vars-service
                       home-environment-variables-service-type
-                      `(("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$PATH")
+                      `(("PATH" . "/home/ymajan/.config/emacs/bin:/home/ymajan/.local/bin:$PATH")
                         ("SHELL" . ,(file-append zsh "/bin/zsh"))
                         ("XDG_DATA_DIRS" . "/var/lib/flatpak/exports/share:/home/ymajan/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
       
@@ -66,7 +63,7 @@
       (service home-zsh-service-type
                (home-zsh-configuration
                 (environment-variables
-                 `(("DOOMDIR" . "$HOME/count_fig/dots/doom/") ;; we could also copy the files over, but changes aren't reflexive
+                 `(("DOOMDIR" . "/home/ymajan/count_fig/dots/doom/") ;; we could also copy the files over, but changes aren't reflexive
                    )))))
 
      %base-home-services))))
