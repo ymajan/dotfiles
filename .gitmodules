@@ -1,0 +1,4 @@
+[submodule "jay/dotfiles"]
+	path = jay/dotfiles
+	url = https://github.com/ymajan/dotfiles
+	branch = main
