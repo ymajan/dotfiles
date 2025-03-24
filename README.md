@@ -1,4 +1,6 @@
-# gnu_geeks config files
-My GNU GUIX config files
+# Configuration Files For Mackos and GNU Geeks
 
-symlink /etc/config.scm and /etc/guix/channels.scm
+Notes on GNU Geeks
+symlink /etc/config.scm to system.scm and /etc/guix/channels.scm to channels.scm
+
+Notes on Mackos
