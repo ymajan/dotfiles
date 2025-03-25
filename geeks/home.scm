@@ -1,6 +1,3 @@
-;; This "home-environment" file can be passed to 'guix home reconfigure'
-;; to reproduce the content of your profile.
-
 (use-modules (gnu services)
              (gnu system shadow)
              (guix gexp)
@@ -101,7 +98,7 @@
     "linux-libre-headers"
     "vscodium"
     "python"
-    "emacs"              ;; Added explicit Emacs package
+    "emacs-next-pgtk"              ;; Added explicit Emacs package
     "emacs-doom-themes"  ;; Added for Doom Emacs
     "node"
     "openjdk"
