@@ -52,10 +52,6 @@
         org-journal-date-format "%Y-%m-%d"
         org-journal-date-prefix "#+TITLE: ")
 
-  org-journal-file-header 
-  "#+TITLE: %Y-%m-%d\n\n* 
-  Morning Reflections\n** 
-  Dreams\n\n** 
-  Gratitude"
+  org-journal-file-header "#+TITLE: %Y-%m-%d\n\n* Dreams\n\n** Gratitude"
         
 )
