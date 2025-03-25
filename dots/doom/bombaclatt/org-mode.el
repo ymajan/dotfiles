@@ -49,7 +49,7 @@
   (setq org-journal-dir (concat (file-name-as-directory org-directory) "Annals/")
         org-journal-file-type 'daily
         org-journal-file-format "%Y-%m-%d.org"
-        org-journal-date-format "%Y-%m-%d"
+        org-journal-date-format "%Y-%m-%d \n* Dreams\n* Gratitude"
         org-journal-date-prefix "#+TITLE: "
-        org-journal-file-header "#+TITLE: %Y-%m-%d\n\n* Dreams\n\n* Gratitude")
+        )
   )
