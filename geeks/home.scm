@@ -92,17 +92,34 @@
     "linux-libre-headers"
     "vscodium"
     "python"
-    "node"))
+    ;; emacs use
+    "node"
+    "openjdk"
+    "plantuml"
+    "wl-clipboard"
+    "graphviz"
+    "gnuplot"
+    "shellcheck"
+  ))
 
 (define python-packages
   '("python-ta-lib"
     "ta-lib"
-    "conda"))
+    "conda"
+    ;; emacs
+    "python-black"
+    "python-pyflakes"
+    "python-isort"
+    "python-pipenv"
+    "python-nose"
+  ))
 
 (define document-packages
   '("texlive-scheme-basic"
     "texlive-dvipng"
-    "texlive-dvisvgm"))
+    "texlive-dvisvgm"
+    "pandoc"
+    "markdown"))
 
 (define desktop-packages
   '("google-chrome-stable"
