@@ -11,7 +11,12 @@
              (gnu home services shells)
              (gnu packages)
              (gnu packages shells)
+             (gnu packages emacs)    ;; Added for Emacs packages
              (nongnu packages mozilla))
+
+;; =====================
+;; Channel configuration
+;; =====================
 
 ;; Define channels configuration
 (define %nonguix-channel
@@ -86,34 +91,39 @@
           %guix-channel)
     %default-channels))
 
-;; Package groups for better organization
+;; =================
+;; Package groupings
+;; =================
+
+;; Development tools and programming languages
 (define development-packages
   '("gcc-toolchain"
     "linux-libre-headers"
     "vscodium"
     "python"
-    ;; emacs use
+    "emacs"              ;; Added explicit Emacs package
+    "emacs-doom-themes"  ;; Added for Doom Emacs
     "node"
     "openjdk"
     "plantuml"
     "wl-clipboard"
     "graphviz"
     "gnuplot"
-    "shellcheck"
-  ))
+    "shellcheck"))
 
+;; Python-specific packages and tools
 (define python-packages
   '("python-ta-lib"
     "ta-lib"
     "conda"
-    ;; emacs
+    ;; Emacs Python development support
     "python-black"
     "python-pyflakes"
     "python-isort"
     "python-pipenv"
-    "python-nose"
-  ))
+    "python-nose"))
 
+;; Document preparation and publishing tools
 (define document-packages
   '("texlive-scheme-basic"
     "texlive-dvipng"
@@ -121,6 +131,7 @@
     "pandoc"
     "markdown"))
 
+;; Desktop applications and utilities
 (define desktop-packages
   '("google-chrome-stable"
     "flatpak"
@@ -128,7 +139,10 @@
     "zsh"
     "rbw"))
 
-;; Home environment definition
+;; =====================
+;; Home environment setup
+;; =====================
+
 (home-environment
   (packages (specifications->packages
             (append development-packages
@@ -138,14 +152,14 @@
   (services
     (append
       (list
-        ;; Environment variables service
+        ;; Set environment variables
         (simple-service 'extended-env-vars-service
                       home-environment-variables-service-type
                       `(("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$PATH")
                         ("SHELL" . ,(file-append zsh "/bin/zsh"))
                         ("XDG_DATA_DIRS" . "/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
 
-        ;; Configure channels
+        ;; Configure channels for package sources
         (service home-channels-service-type home-channels)
 
         ;; Configure dotfiles
@@ -153,12 +167,12 @@
                 `((".guile" ,%default-dotguile)
                   (".Xdefaults" ,%default-xdefaults)))
 
-        ;; Configure XDG files
+        ;; Configure XDG application settings
         (service home-xdg-configuration-files-service-type
                 `(("gdb/gdbinit" ,%default-gdbinit)
                   ("nano/nanorc" ,%default-nanorc)))
 
-        ;; Configure ZSH
+        ;; Configure ZSH as default shell
         (service home-zsh-service-type
                 (home-zsh-configuration
                   (environment-variables
