@@ -23,3 +23,11 @@ MackOS
 ```
 ln -s ~/count_fig/macos/zprofile ~/.zprofile
 ```
+
+For authinfo org-caldav syntax necessary, really important and hard to find lol
+
+```
+machine cloud.jaynam.me:433 port https login ymajan password app-password
+```
+
+
