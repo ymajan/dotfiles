@@ -65,6 +65,7 @@
   (org-icalendar-timezone "America/New_York")
   (org-icalendar-include-todo 'all)
   (org-caldav-sync-todo t)
+  (org-caldav-skip-conditions '((todo-p "CANCELED")))
   (org-icalendar-categories '(local-tags))
   (org-caldav-calendars
    `((:calendar-id "personal"
