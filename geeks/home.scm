@@ -106,6 +106,7 @@
     "wl-clipboard"
     "graphviz"
     "gnuplot"
+    "shfmt"
     "shellcheck"))
 
 ;; Python-specific packages and tools
@@ -114,10 +115,10 @@
     "ta-lib"
     "conda"
     ;; Emacs Python development support
+    "python-pip"
     "python-black"
     "python-pyflakes"
     "python-isort"
-    "python-pipenv"
     "python-nose"))
 
 ;; Document preparation and publishing tools
