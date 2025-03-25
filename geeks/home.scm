@@ -91,7 +91,8 @@
   '("gcc-toolchain"
     "linux-libre-headers"
     "vscodium"
-    "python"))
+    "python"
+    "node"))
 
 (define python-packages
   '("python-ta-lib"
