@@ -65,6 +65,7 @@
   (org-icalendar-timezone "America/New_York")
   (org-icalendar-include-todo 'all)
   (org-caldav-sync-todo t)
+  (org-caldav-todo-percent-states '((0 "TODO") (0 "WAITING") (100 "CANCELLED") (100 "DONE") ))
   (org-caldav-skip-conditions '((todo-p "CANCELED")))
   (org-icalendar-categories '(local-tags))
   (org-caldav-calendars
