@@ -2,7 +2,7 @@
 (use-package org
   :custom
   ;; Set up directory and file paths first
-  (org-directory (expand-file-name "~/Documents/Codex/Org/"))
+  (org-directory "~/Documents/Codex/Org/")
   (org-id-locations-file (expand-file-name ".orgids" org-directory))
   (org-attach-id-dir (expand-file-name ".attach" org-directory))
   (org-default-notes-file (expand-file-name "GTD/inbox.org" org-directory))
@@ -12,8 +12,8 @@
   (org-agenda-skip-scheduled-repeats-after-deadline t)
   (org-todo-keywords '((sequence "TODO(t)" "DOING(g)" "|" "DONE(d)" "CANCELED(c)" "SKIPPED(s)")))
   ;; org-refile
-  (org-refile-targets '(((expand-file-name "GTD/next_actions.org" org-directory) :maxelevel . 2)
-                        ((expand-file-name "GTD/incubator.org" org-directory) :maxlevel . 2)))
+  (org-refile-targets '((("~/Documents/Codex/Org/GTD/incubator.org" org-directory) :maxlevel . 2)
+                        (("~/Documents/Codex/Org/GTD/incubator.org" org-directory) :maxlevel . 2)))
   (org-refile-use-outline-path t)       ; changed to t instead of 'file
   (org-outline-path-complete-in-steps nil)
   (org-refile-allow-creating-parent-nodes t)    ; changed to t instead of 'confirm
