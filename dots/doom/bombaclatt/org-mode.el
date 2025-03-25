@@ -45,12 +45,11 @@
   :init
   ;; Change default prefix key; needs to be set before loading org-journal
   ;; (setq org-journal-prefix-key "C-c j ")
-  :custom
-  org-journal-dir (concat (file-name-as-directory org-directory) "Annals/")
-  org-journal-file-type 'daily
-  org-journal-file-format "%Y-%m-%d.org"
-  org-journal-date-format "%Y-%m-%d"
-  org-journal-date-prefix "#+TITLE: "
-  org-journal-file-header "#+TITLE: %Y-%m-%d\n\n* Dreams\n\n** Gratitude"
-  
+  :config
+  (setq org-journal-dir (concat (file-name-as-directory org-directory) "Annals/")
+        org-journal-file-type 'daily
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-date-format "%Y-%m-%d"
+        org-journal-date-prefix "#+TITLE: "
+        org-journal-file-header "#+TITLE: %Y-%m-%d\n\n* Dreams\n\n* Gratitude")
   )
