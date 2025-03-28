@@ -12,8 +12,8 @@
   (org-agenda-skip-scheduled-repeats-after-deadline t)
   (org-todo-keywords '((sequence "TODO(t)" "DOING(g)" "|" "DONE(d)" "CANCELED(c)" "SKIPPED(s)")))
   ;; org-refile
-  (org-refile-targets `((,(expand-file-name "GTD/incubator.org" org-directory) :maxlevel . 2)
-                        (,(expand-file-name "GTD/next_actions.org" org-directory) :maxlevel . 2)))
+  (org-refile-targets `((,(expand-file-name "GTD/incubator.org" org-directory) :maxlevel . 1)
+                        (,(expand-file-name "GTD/next_actions.org" org-directory) :maxlevel . 1)))
   (org-refile-use-outline-path nil)       ; changed to t instead of 'file
   (org-outline-path-complete-in-steps nil)
   (org-refile-allow-creating-parent-nodes t)    ; changed to t instead of 'confirm

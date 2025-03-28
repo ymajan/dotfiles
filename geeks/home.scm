@@ -134,6 +134,7 @@
   '("google-chrome-stable"
     "flatpak"
     "nextcloud-client"
+    "kdeconnect"
     "zsh"
     "rbw"))
 
