@@ -1,0 +1,281 @@
+#+TITLE: Doom Emacs Configuration
+#+AUTHOR: Jaynams Ahh
+#+DATE: April 2, 2025
+#+OPTIONS: toc:2 num:t
+
+* Overview
+
+This document describes the Doom Emacs configuration used in Count Fig. The configuration
+is organized into several modules, each with a specific focus area:
+
+- *Core Configuration* (~config.el~) - Core settings and module loading
+- *Package Management* (~packages.el~) - Package declarations and sources
+- *Module Selection* (~init.el~) - Doom modules enabled and their configurations
+- *Custom Modules* (~bombaclatt/*.el~) - Personal customization modules
+
+* Core Configuration (config.el)
+
+The core configuration sets up basic Emacs behavior and loads custom modules:
+
+** Key Settings
+
+- Server mode for org-protocol and other services
+- Authentication sources
+- Full-screen startup
+- User information
+- Theme selection (doom-henna)
+- Line numbers display
+- Directory paths for org and org-roam
+
+#+BEGIN_SRC emacs-lisp
+(setq debug-on-error t)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
+(setq auth-sources '("~/.authinfo" "~/.authinfo.gpg"))
+
+;; startup
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; initial variables
+(setq user-full-name "Jaynams Ahh"
+      doom-theme 'doom-henna
+      custom-file (expand-file-name "custom.el" doom-user-dir)
+      display-line-numbers-type t
+      load-prefer-newer t
+      search-highlight t
+      search-whitespace-regexp ".*?"
+      gc-cons-threshold (* 50 1000 1000)) ; 50 MB
+
+(setq org-directory "~/Documents/Codex/Org/")
+(setq org-roam-directory "~/Documents/Codex/Org/Roameo/")
+#+END_SRC
+
+** Module Loading
+
+The configuration loads custom modules:
+
+#+BEGIN_SRC emacs-lisp
+;; load in elisp config files
+(load! "bombaclatt/note-taking")
+(load! "bombaclatt/org-mode")
+(load! "bombaclatt/macos-modifiers")
+(load! "bombaclatt/ref-management")
+#+END_SRC
+
+** Additional Tools
+
+- *Deft* for quick note search and creation
+- *Mathpix* for capturing mathematical expressions from screenshots
+- *PlantUML* for diagram creation
+- *Anki* integration for flashcards
+- *Leetcode* for programming practice
+- *Org-caldav* for calendar synchronization
+
+* Package Management (packages.el)
+
+The ~packages.el~ file declares additional packages not included in Doom Emacs by default:
+
+#+BEGIN_SRC emacs-lisp
+(package! f)
+(package! shrface)
+(package! leetcode)
+(package! anki-editor)
+(package! org-anki)
+(package! leetcode)
+(package! embark)
+(package! zotero)
+(package! pdf-tools)
+(package! djvu)
+(package! nov)
+(package! deft)
+(package! org-caldav)
+(package! secrets)
+(package! oauth2)
+(package! org-roam
+  :recipe (:host github :repo "org-roam/org-roam" :branch "main"))
+(package! mathpix.el
+  :recipe (:host github :repo "jethrokuan/mathpix.el" :branch "master"))
+(package! anki-editor
+  :recipe (:host github :repo "anki-editor/anki-editor"))
+(package! loglink
+  :recipe (:host github :repo "ymajan/loglink" :branch "main"))
+(package! mathpix.el
+  :recipe (:host github :repo "jethrokuan/mathpix.el"))
+#+END_SRC
+
+* Module Selection (init.el)
+
+The ~init.el~ file selects which Doom Emacs modules to enable and with what flags:
+
+** Key Module Selections
+
+- *Completion*: Uses corfu with orderless instead of company
+- *UI*: Doom dashboard, modelines, workspaces
+- *Editor*: Evil mode, file templates, code folding
+- *Tools*: Bibliography (citar), PDF support, magit+forge for Git
+- *Languages*: Emacs Lisp, Markdown, Org-mode (with many extensions), Python, Shell
+
+** Org-mode Configuration
+
+Org-mode is configured with many extensions:
+
+#+BEGIN_SRC emacs-lisp
+(org +dragndrop +gnuplot +journal +jupyter +pandoc +pretty +roam2 +roamui +noter)
+#+END_SRC
+
+** Python Configuration
+
+Python is set up with:
+
+#+BEGIN_SRC emacs-lisp
+(python +lsp +pyright +tree-sitter +pytest)
+#+END_SRC
+
+* Custom Modules
+
+** Note Taking (note-taking.el)
+
+This module configures org-roam and related note-taking tools:
+
+- *org-roam* directory and database location
+- Capture templates for different note types
+- Node display configuration
+- Integration with org-noter for annotating PDFs
+- Support for EPUB files with nov.el
+- PDF viewing with pdf-tools
+
+** Org Mode (org-mode.el)
+
+Core org-mode configuration:
+
+- Directory structure for GTD workflow
+- Todo keywords and states
+- Capture templates
+- Agenda file locations
+- Journal configuration
+
+** Reference Management (ref-management.el)
+
+Tools for academic reference management:
+
+- *Citar* for citation management
+- Integration with Zotero
+- citar-org-roam for connecting citations to notes
+- Custom function for converting keywords to tags
+
+** macOS Modifiers (macos-modifiers.el)
+
+Key mapping for macOS:
+
+#+BEGIN_SRC emacs-lisp
+;; Setting up modifier keys for macOS
+(setq mac-command-modifier  'super        ; Command (⌘) key     <-> Super (S-)
+      mac-option-modifier   'meta         ; Option/Alt (⌥) key  <-> Meta (M-)
+      mac-function-modifier 'hyper        ; Fn (🌐) key         <-> Hyper (H-)
+      ns-control-modifier   'control)     ; Control (⌃) key     <-> Control (C-)
+#+END_SRC
+
+* GTD Workflow
+
+The configuration supports a Getting Things Done (GTD) workflow with:
+
+** Directory Structure
+
+- ~GTD/inbox.org~ - Capture inbox
+- ~GTD/next_actions.org~ - Current actions
+- ~GTD/habits.org~ - Regular habits
+- ~GTD/incubator.org~ - Ideas for future consideration
+
+** Org-Caldav Integration
+
+Calendar synchronization with Nextcloud through org-caldav:
+
+#+BEGIN_SRC emacs-lisp
+(org-caldav-calendars
+ `((:calendar-id "personal"
+    :url "https://cloud.jaynam.me/remote.php/dav/calendars/ymajan"
+    :files ("~/Documents/Codex/Org/GTD/calendar.org")
+    :inbox "~/Documents/Codex/Org/GTD/calendar.org")
+   (:calendar-id "inbox-1"  ;; gtd personal tasker
+    :url "https://cloud.jaynam.me/remote.php/dav/calendars/ymajan"
+    :files ("~/Documents/Codex/Org/GTD/archive/canceled.org")
+    :inbox "~/Documents/Codex/Org/GTD/inbox.org")
+   ;; more calendars...
+   ))
+#+END_SRC
+
+* Knowledge Management
+
+The org-roam configuration creates a comprehensive personal knowledge management system:
+
+** Directory Structure
+
+- ~Roameo/~ - Main org-roam directory
+- ~Roameo/Dailies/~ - Daily notes
+- ~Roameo/Reference/~ - Reference notes including literature notes
+- ~Roameo/Psimatic/~ - Zettelkasten-style permanent notes
+
+** Capture Templates
+
+#+BEGIN_SRC emacs-lisp
+(org-roam-capture-templates
+ '(
+   ("z" "zotero zettel"
+    plain
+    "%?"
+    :target (file+head
+             "Reference/${citar-citekey}.org"
+             "#+title: ${note-title}
+#+filetags: :zotero: %(ymajan/citar-keywords-to-tags \"${citar-keywords}\")
+%(let ((url \"${citar-url}\"))
+   (if (and url (not (string-empty-p url)))
+       (concat \"#+url: \" url \"\n\")
+       \"\"))")
+    :unnarrowed t)
+   ("r" "reference zettel"
+    plain
+    "%?"
+    :target (file+head
+             "Reference/${slug}.org"
+             "#+title: ${title}
+#+filetags: :url:
+%(let ((url \"${citar-url}\"))
+   (if (and url (not (string-empty-p url)))
+       (concat \"#+url: \" url \"\n\")
+       \"\"))")
+    :unnarrowed t)
+   ("n" "org-roam note"
+    plain
+    "%?"
+    :target (file+head "Psimatic/${slug}.org"
+                       "#+title: ${title}\n")
+    :unnarrowed t)))
+#+END_SRC
+
+* Installation and Usage
+
+** Installation
+
+1. Install Doom Emacs following the instructions at [[https://github.com/doomemacs/doomemacs]]
+2. Clone this repository:
+   #+BEGIN_SRC shell
+   git clone https://github.com/yourusername/count_fig.git ~/count_fig
+   #+END_SRC
+3. Set DOOMDIR environment variable:
+   #+BEGIN_SRC shell
+   export DOOMDIR="$HOME/count_fig/dots/doom"
+   #+END_SRC
+4. Sync Doom Emacs:
+   #+BEGIN_SRC shell
+   ~/.config/emacs/bin/doom sync
+   #+END_SRC
+
+** Usage Tips
+
+- *Org Capture*: ~SPC X~ for capture templates
+- *Org Agenda*: ~SPC o a~ to access agenda views
+- *Org Roam*: ~SPC n r f~ to find notes, ~SPC n r i~ to insert links
+- *Deft*: ~SPC o d~ for quick note search
+- *Citar*: ~SPC n c~ for citation commands

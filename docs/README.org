@@ -1,0 +1,74 @@
+# Count Fig Documentation
+
+This directory contains the documentation for the Count Fig repository, organized in org-mode format for easy publishing to GitHub Pages or other platforms.
+
+## Documentation Structure
+
+- **README.org**: Overview of the repository and basic setup instructions
+- **doom-emacs.org**: Details about the Doom Emacs configuration
+- **guix-configuration.org**: Documentation for GNU Guix system and home configurations
+- **knowledge-management.org**: Details about the knowledge management system
+- **macos-configuration.org**: macOS-specific configuration documentation
+- **publishing.org**: Instructions for publishing this documentation
+- **index.org**: Main landing page with navigation
+
+## Local Preview
+
+To preview the documentation locally:
+
+1. Open one of the org files in Emacs
+2. Use `C-c C-e h h` to export to HTML and open in your browser
+
+## Publishing to GitHub Pages
+
+The documentation can be published to GitHub Pages using the included tools:
+
+### Manual Publishing
+
+1. In Emacs, load the `publish.el` script:
+   ```elisp
+   M-x load-file RET ~/count_fig/docs/publish.el RET
+   ```
+
+2. Publish the project:
+   ```elisp
+   M-x org-publish-project RET count-fig-docs RET
+   ```
+
+3. The HTML files will be generated in the `~/count_fig/docs/html/` directory
+
+### Automated Publishing with GitHub Actions
+
+The repository includes a GitHub Actions workflow that automatically publishes the documentation when changes are pushed to the main branch:
+
+1. Push your changes to the main branch
+2. The workflow will generate the HTML files and publish them to the gh-pages branch
+3. You can view the published documentation at `https://yourusername.github.io/count_fig/`
+
+## Customizing the Documentation
+
+To customize the documentation:
+
+1. Edit the org files to update the content
+2. Modify the CSS styling in `static/css/style.css`
+3. Update the publishing configuration in `publish.el`
+
+## Adding New Documentation Pages
+
+To add a new documentation page:
+
+1. Create a new org file in the `docs` directory
+2. Add appropriate front matter:
+   ```org
+   #+TITLE: Your Page Title
+   #+AUTHOR: Your Name
+   #+DATE: April 2, 2025
+   #+OPTIONS: toc:2 num:t
+   ```
+
+3. Add a link to the new page in `index.org`
+4. Republish the project
+
+## License
+
+The documentation is licensed under the GNU General Public License v3.0, the same as the rest of the repository.

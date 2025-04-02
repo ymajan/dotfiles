@@ -1,0 +1,309 @@
+#+TITLE: Knowledge Management System
+#+AUTHOR: Jaynams Ahh
+#+DATE: April 2, 2025
+#+OPTIONS: toc:2 num:t
+
+* Overview
+
+This document describes the knowledge management system implemented in Count Fig using Org-mode, Org-roam, reference management tools, and calendar integration.
+
+* Directory Structure
+
+The knowledge management system uses the following directory structure:
+
+#+BEGIN_SRC
+~/Documents/Codex/
+├── Org/
+│   ├── GTD/                # Getting Things Done system
+│   │   ├── inbox.org       # Capture inbox
+│   │   ├── next_actions.org # Current actions
+│   │   ├── habits.org      # Regular habits
+│   │   ├── incubator.org   # Ideas for future consideration
+│   │   └── calendar.org    # Calendar events
+│   ├── Annals/             # Journal entries
+│   │   └── YYYY-MM-DD.org  # Daily journal files
+│   └── Roameo/             # Org-roam knowledge base
+│       ├── Dailies/        # Daily notes
+│       ├── Reference/      # Reference notes (literature, websites)
+│       └── Psimatic/       # Permanent notes (zettelkasten)
+└── zotero/                 # Zotero library documents
+#+END_SRC
+
+* Note-Taking System (Org-roam)
+
+The note-taking system is built around Org-roam, providing a zettelkasten-inspired knowledge management approach.
+
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-roam
+  :custom
+  (org-roam-db-location "~/Documents/Codex/Org/Roameo/org-roam.db")
+  (org-roam-directory (concat (file-name-as-directory org-directory) "Roameo"))
+  (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Dailies"))
+  (org-roam-database-connector 'sqlite-builtin)
+  (org-roam-completion-everywhere t)
+  (org-roam-db-update-on-save t)
+  (org-roam-link-auto-replace t)
+  (org-roam-node-display-template (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  ;; ...capture templates...
+)
+#+END_SRC
+
+** Note Categories
+
+The system organizes notes into several categories:
+
+- *Dailies*: Daily notes for journaling and daily work
+- *Reference Notes*: Literature notes, website references, and other external sources
+- *Permanent Notes*: Original ideas and concepts in a zettelkasten style
+
+** Capture Templates
+
+Org-roam uses custom capture templates for different note types:
+
+1. *Zotero Zettel*: Notes linked to academic references from Zotero
+2. *Reference Zettel*: Notes on web resources and other references
+3. *Org-roam Note*: General knowledge notes (permanent notes)
+
+#+BEGIN_SRC emacs-lisp
+(org-roam-capture-templates
+ '(
+   ("z" "zotero zettel"
+    plain
+    "%?"
+    :target (file+head
+             "Reference/${citar-citekey}.org"
+             "#+title: ${note-title}
+#+filetags: :zotero: %(ymajan/citar-keywords-to-tags \"${citar-keywords}\")
+%(let ((url \"${citar-url}\"))
+   (if (and url (not (string-empty-p url)))
+       (concat \"#+url: \" url \"\n\")
+       \"\"))")
+    :unnarrowed t)
+   ;; Other templates...
+   ))
+#+END_SRC
+
+* Task Management (GTD)
+
+The system implements a Getting Things Done (GTD) workflow using org-mode.
+
+** Core Components
+
+1. *Inbox*: Capture location for new tasks and ideas
+2. *Next Actions*: Current actionable tasks
+3. *Habits*: Regular recurring tasks
+4. *Incubator*: Ideas and projects for future consideration
+
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  :custom
+  ;; Set up directory and file paths first
+  (org-directory "~/Documents/Codex/Org/")
+  (org-id-locations-file (expand-file-name ".orgids" org-directory))
+  (org-attach-id-dir (expand-file-name ".attach" org-directory))
+  (org-default-notes-file (expand-file-name "GTD/inbox.org" org-directory))
+  ;; Agenda files
+  (org-agenda-files (list (expand-file-name "GTD/habits.org" org-directory)
+                          (expand-file-name "GTD/next_actions.org" org-directory)))
+  (org-agenda-skip-scheduled-repeats-after-deadline t)
+  (org-todo-keywords '((sequence "TODO(t)" "DOING(g)" "|" "DONE(d)" "CANCELED(c)" "SKIPPED(s)")))
+  ;; ...
+)
+#+END_SRC
+
+** Task Workflow
+
+1. Capture tasks into the inbox using org-capture
+2. Process inbox tasks regularly:
+   - Archive completed tasks
+   - Refile actionable tasks to next_actions.org
+   - Refile ideas to incubator.org
+3. Review next actions and complete them
+4. Periodically review the incubator to activate projects
+
+* Reference Management
+
+Reference management integrates academic and web resources into the knowledge system.
+
+** Citar Integration
+
+Citar provides reference management capabilities:
+
+#+BEGIN_SRC emacs-lisp
+(use-package citar
+  :after org-roam
+  :hook ((LaTeX-mode . citar-capf-setup)
+         (org-mode . citar-capf-setup))
+  :custom
+  (citar-bibliography (expand-file-name "biblio.bib" org-directory))
+  (citar-library-paths (list (expand-file-name "~/Documents/Codex/zotero/")))
+  (citar-notes-paths (expand-file-name "Reference/" org-roam-directory)))
+#+END_SRC
+
+** Zotero Integration
+
+Zotero integration allows for importing references and PDFs:
+
+#+BEGIN_SRC emacs-lisp
+(use-package zotero
+  :custom
+  zotero-translator-dir "~/Zotero/translators"
+  zotero-storage-dir "~/Zotero"
+  zotero-cache-dir "/Users/ymajan/.config/emacs/.local/cache/zotero-cache"
+  zotero-backend 'better-bibtex)
+#+END_SRC
+
+** PDF and EPUB Support
+
+For reading and annotating sources:
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-noter
+  :after (:all org pdf-tools djvu)
+  :custom
+  (org-noter-notes-search-path (list (expand-file-name "Reference" org-roam-directory)))
+  (org-noter-default-notes-file-names '("notes.org"))
+  (org-noter-doc-split-fraction '(0.6 . 0.4)))
+
+(use-package! nov
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  (setq nov-text-width 80)
+  (setq nov-text-size 1.0))
+
+(use-package! pdf-tools
+  :config
+  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode)))
+#+END_SRC
+
+* Calendar and Task Synchronization
+
+The system synchronizes tasks and events with external calendars through org-caldav.
+
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-caldav
+  :custom
+  (org-icalendar-timezone "America/New_York")
+  (org-icalendar-include-todo 'all)
+  (org-caldav-sync-todo t)
+  (org-caldav-todo-deadline-schedule-warning-days t)
+  (org-caldav-todo-percent-states '((0 "TODO") (20 "WAITING") (50 "DOING") (100 "CANCELED") (100 "DONE") ))
+  (org-caldav-skip-conditions '((todo-p "CANCELED")))
+  (org-icalendar-categories '(local-tags))
+  (org-caldav-calendars
+   `((:calendar-id "personal"
+      :url "https://cloud.jaynam.me/remote.php/dav/calendars/ymajan"
+      :files ("~/Documents/Codex/Org/GTD/calendar.org")
+      :inbox "~/Documents/Codex/Org/GTD/calendar.org")
+     ;; Additional calendars...
+     )))
+#+END_SRC
+
+** Calendar Types
+
+The system uses multiple calendars for different purposes:
+
+1. *Personal Calendar*: General calendar events
+2. *GTD Inbox*: Tasks captured from external sources
+3. *Next Actions*: Current actionable tasks
+4. *Incubator*: Ideas and future projects
+
+* Journaling System
+
+Journaling is supported through org-journal integrated with org-roam-dailies.
+
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-journal
+  :ensure t
+  :defer t
+  :init
+  ;; Change default prefix key; needs to be set before loading org-journal
+  (setq org-journal-prefix-key "C-c j ")
+  :config
+  (setq org-journal-dir (concat (file-name-as-directory org-directory) "Annals/")
+        org-journal-file-type 'daily
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-date-format "%Y-%m-%d \n* Dreams\n* Gratitude"
+        org-journal-date-prefix "#+TITLE: "
+        )
+  )
+#+END_SRC
+
+** Integration with Org-roam
+
+Journal entries are integrated with org-roam:
+
+#+BEGIN_SRC emacs-lisp
+;; integrate org-journal with org-roam-dailies
+(defun my-org-journal-add-id (&rest _)
+  "Ensure there's an Org ID at the top of the buffer."
+  (goto-char (point-min))
+  ;; Only create an ID if there isn't one already:
+  (unless (org-id-get nil 'create-if-interactive)
+    (org-id-get-create)))
+
+;; create org-roam-id when making journal entry
+(advice-add 'org-journal-new-entry :after #'my-org-journal-add-id)
+#+END_SRC
+
+* Usage Workflows
+
+** Creating Notes
+
+1. *Capture New Note*: ~SPC n r c~ 
+2. *Find Existing Note*: ~SPC n r f~
+3. *Insert Link to Note*: ~SPC n r i~
+
+** Task Management
+
+1. *Capture Task*: ~SPC X t~
+2. *View Agenda*: ~SPC o a~
+3. *Refile Task*: ~SPC m r r~
+
+** Reference Management
+
+1. *Insert Citation*: ~SPC n c i~
+2. *Open Reference*: ~SPC n c o~
+3. *Create Note from Reference*: ~SPC n c n~
+
+** Journaling
+
+1. *Create Journal Entry*: ~SPC C j j~
+2. *Open Today's Journal*: ~SPC C j t~
+3. *Search Journal*: ~SPC C j s~
+
+* Maintenance
+
+** Database Maintenance
+
+Regularly maintain the org-roam database:
+
+#+BEGIN_SRC emacs-lisp
+;; Rebuild org-roam database
+(org-roam-db-clear-all)
+(org-roam-db-sync)
+#+END_SRC
+
+** File Organization
+
+Periodically review and organize files:
+
+1. Archive completed tasks
+2. Review reference notes for connections to permanent notes
+3. Update tags and keywords for better discoverability
+
+** Backup Strategy
+
+Ensure regular backups of your knowledge base:
+
+1. Use version control (Git) for tracking changes
+2. Sync with cloud storage or remote repository
+3. Consider encrypted backups for sensitive information

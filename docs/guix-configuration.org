@@ -1,0 +1,363 @@
+#+TITLE: GNU Guix Configuration
+#+AUTHOR: Jaynams Ahh
+#+DATE: April 2, 2025
+#+OPTIONS: toc:2 num:t
+
+* Overview
+
+This document describes the GNU Guix configuration used in Count Fig. The configuration is divided into:
+
+- *System Configuration* - System-wide settings and services
+- *Home Configuration* - User-specific environment and packages
+- *Channel Configuration* - Package sources for both system and home
+
+* System Configuration
+
+The system configuration (~geeks/system.scm~) defines the operating system settings, services, and system-wide packages.
+
+** Core System Settings
+
+The core system settings include:
+
+#+BEGIN_SRC scheme
+(operating-system
+  (kernel linux)
+  (initrd microcode-initrd)
+  (firmware (list linux-firmware))
+  (kernel-arguments (list 
+                     "cdc_ncm.enable_iad=1"
+                     "qmi_wwan.enable_qmi_sync_ops=1"))
+  (locale "en_US.utf8")
+  (timezone "America/New_York")
+  (keyboard-layout (keyboard-layout "us"))
+  (host-name "geekpad")
+  ;; ...
+)
+#+END_SRC
+
+** User Accounts
+
+The system configuration defines user accounts:
+
+#+BEGIN_SRC scheme
+(users
+ (cons*
+  (user-account
+   (name "ymajan")
+   (comment "jaynam")
+   (group "users")
+   (home-directory "/home/ymajan")
+   (shell (file-append zsh "/bin/zsh"))
+   (supplementary-groups '("wheel" "netdev" "audio" "video" "input" "lp" "scanner")))
+  %base-user-accounts))
+#+END_SRC
+
+** System Packages
+
+System-wide packages are installed for all users:
+
+#+BEGIN_SRC scheme
+(packages
+ (append
+  (map specification->package '("gnome-tweaks"
+                                "gnome-shell-extensions"
+                                "gnome-system-monitor"
+                                "network-manager-applet"
+                                "modem-manager"
+                                "network-manager"
+                                "seahorse" ;; gnome password manager
+                                "pinentry-gnome3" ;; graphical password entry
+                                "gnupg"
+                                "zsh"
+                                "openssh"
+                                "git"
+                                "gitg"
+                                "direnv"
+                                "ripgrep"
+                                "findutils"
+                                "fd"
+                                "firefox-esr-wayland"
+                                "ungoogled-chromium-wayland"
+                                "emacs-next-pgtk"))
+  %base-packages))
+#+END_SRC
+
+** System Services
+
+System services include desktop environment, power management, and more:
+
+#+BEGIN_SRC scheme
+(services
+ (append
+  %desktop-services
+  (list
+   (service cups-service-type)
+   (service gnome-desktop-service-type)
+   (service bluetooth-service-type)
+   ;; (service modem-manager-service-type) TODO - setup sim card
+   (service tlp-service-type
+            (tlp-configuration
+             (sched-powersave-on-bat? #t)
+             (cpu-scaling-governor-on-ac (list "performance"))
+             (cpu-scaling-governor-on-bat (list "powersave"))
+             (energy-perf-policy-on-ac "performance")
+             (energy-perf-policy-on-bat "balance_power")
+             (radeon-power-profile-on-ac "high")
+             (radeon-power-profile-on-bat "low")
+             (radeon-dpm-state-on-ac "performance")
+             (radeon-dpm-state-on-bat "battery")
+             (radeon-dpm-perf-level-on-ac "high")
+             (radeon-dpm-perf-level-on-bat "low")
+             (pcie-aspm-on-ac "performance")
+             (pcie-aspm-on-bat "default"))))))
+#+END_SRC
+
+** Boot Settings
+
+Bootloader configuration using GRUB with EFI:
+
+#+BEGIN_SRC scheme
+(bootloader
+ (bootloader-configuration
+  (bootloader grub-efi-bootloader)
+  (targets (list "/boot/efi"))
+  (keyboard-layout keyboard-layout)))
+#+END_SRC
+
+** File Systems
+
+File system mounts for root and EFI partitions:
+
+#+BEGIN_SRC scheme
+(file-systems
+ (cons*
+  (file-system
+   (mount-point "/")
+   (device (uuid "5e1534e9-633c-4899-bedc-2576d8743295" 'ext4))
+   (type "ext4"))
+  (file-system
+   (mount-point "/boot/efi")
+   (device (uuid "E01A-B142" 'fat32))
+   (type "vfat"))
+  %base-file-systems))
+#+END_SRC
+
+* System Channels
+
+The system channels configuration (~geeks/system-channels.scm~) defines package sources for the entire system:
+
+#+BEGIN_SRC scheme
+(cons*
+  (channel
+    ;; nonguix channels for more optimized packages
+    (name 'nonguix)
+    (url "https://gitlab.com/nonguix/nonguix")
+    ;; Enable signature verification for nonguix:
+    (introduction
+      (make-channel-introduction
+       "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
+       (openpgp-fingerprint "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
+       
+  (channel
+    ;; science packages (FOSS)
+    (name 'guix-science)
+    (url "https://codeberg.org/guix-science/guix-science.git")
+    (introduction
+      (make-channel-introduction
+       "b1fe5aaff3ab48e798a4cce02f0212bc91f423dc"
+       (openpgp-fingerprint "CA4F 8CF4 37D7 478F DA05  5FD4 4213 7701 1A37 8446"))))
+       
+  %default-channels)
+#+END_SRC
+
+* Home Configuration
+
+The home configuration (~geeks/home.scm~) defines user-specific environment, packages, and services.
+
+** Home Channels
+
+The configuration defines user-specific channels for additional packages:
+
+#+BEGIN_SRC scheme
+(define home-channels
+  (append 
+    (list %nonguix-channel
+          %guix-science-channel
+          %guix-science-nonfree-channel
+          %crypto-channel
+          %guix-cran-channel
+          %guix-channel)
+    %default-channels))
+#+END_SRC
+
+** Package Groups
+
+Packages are organized into functional groups:
+
+#+BEGIN_SRC scheme
+;; Development tools and programming languages
+(define development-packages
+  '("gcc-toolchain"
+    "make"
+    "automake"
+    "autoconf"
+    "libtool"
+    "pkg-config"
+    "linux-libre-headers"
+    "vscodium"
+    "python"
+    "emacs-next-pgtk"
+    "emacs-doom-themes"
+    "node"
+    "openjdk"
+    "plantuml"
+    "wl-clipboard"
+    "graphviz"
+    "gnuplot"
+    "shfmt"
+    "shellcheck"))
+
+;; Python-specific packages and tools
+(define python-packages
+  '("python-ta-lib"
+    "ta-lib"
+    "python-pip"
+    "python-black"
+    "python-pyflakes"
+    "python-isort"
+    "python-nose"))
+
+;; Document preparation and publishing tools
+(define document-packages
+  '("texlive-scheme-basic"
+    "texlive-dvipng"
+    "texlive-dvisvgm"
+    "pandoc"
+    "markdown"))
+
+;; Desktop applications and utilities
+(define desktop-packages
+  '("google-chrome-stable"
+    "flatpak"
+    "nextcloud-client"
+    "kdeconnect"
+    "zsh"
+    "rbw"))
+#+END_SRC
+
+** Home Environment Services
+
+Services for the user environment:
+
+#+BEGIN_SRC scheme
+(home-environment
+  (packages (specifications->packages
+            (append development-packages
+                    python-packages
+                    document-packages
+                    desktop-packages)))
+  (services
+    (append
+      (list
+        ;; Set environment variables
+        (simple-service 'extended-env-vars-service
+                      home-environment-variables-service-type
+                      `(("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH")
+                        ("SHELL" . ,(file-append zsh "/bin/zsh"))
+                        ("XDG_DATA_DIRS" . "/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
+
+        ;; Configure channels for package sources
+        (service home-channels-service-type home-channels)
+
+        ;; Configure dotfiles
+        (service home-files-service-type
+                `((".guile" ,%default-dotguile)
+                  (".Xdefaults" ,%default-xdefaults)))
+
+        ;; Configure XDG application settings
+        (service home-xdg-configuration-files-service-type
+                `(("gdb/gdbinit" ,%default-gdbinit)
+                  ("nano/nanorc" ,%default-nanorc)))
+
+        ;; Configure ZSH as default shell
+        (service home-zsh-service-type
+                (home-zsh-configuration
+                  (environment-variables
+                    `(("DOOMDIR" . "$HOME/count_fig/dots/doom/"))))))
+
+      %base-home-services)))
+#+END_SRC
+
+* Installation and Usage
+
+** Install Guix System
+
+1. Get Guix System (either pre-installed or install from installation image)
+2. Clone the repository:
+   
+   #+BEGIN_SRC shell
+   git clone https://github.com/yourusername/count_fig.git ~/count_fig
+   #+END_SRC
+
+** Setup System Configuration
+
+1. Create system symlinks:
+   
+   #+BEGIN_SRC shell
+   sudo ln -s /home/ymajan/count_fig/geeks/system.scm /etc/config.scm
+   sudo ln -s /home/ymajan/count_fig/geeks/system-channels.scm /etc/guix/channels.scm
+   #+END_SRC
+
+2. Reconfigure system:
+   
+   #+BEGIN_SRC shell
+   sudo guix pull
+   sudo guix system reconfigure /etc/config.scm
+   #+END_SRC
+
+** Setup Home Configuration
+
+1. Create home channel symlink:
+   
+   #+BEGIN_SRC shell
+   mkdir -p ~/.config/guix
+   ln -s ~/count_fig/geeks/home-channels.scm ~/.config/guix/channels.scm
+   #+END_SRC
+
+2. Reconfigure home:
+   
+   #+BEGIN_SRC shell
+   guix pull
+   guix home reconfigure ~/count_fig/geeks/home.scm
+   #+END_SRC
+
+* Maintenance
+
+** Update Channels and System
+
+To update all channels and reconfigure the system:
+
+#+BEGIN_SRC shell
+# System-wide
+sudo guix pull
+sudo guix system reconfigure /etc/config.scm
+
+# Home environment
+guix pull
+guix home reconfigure ~/count_fig/geeks/home.scm
+#+END_SRC
+
+** Add New Packages
+
+To add new packages to the system or home environment:
+
+1. Add package names to the appropriate list in system.scm or home.scm
+2. Reconfigure as needed
+
+* Troubleshooting
+
+** Common Issues
+
+- *Package not found*: Ensure all channels are properly configured and pulled
+- *Service errors*: Check service configurations and file paths
+- *Permission issues*: Ensure proper ownership and permissions on configuration files

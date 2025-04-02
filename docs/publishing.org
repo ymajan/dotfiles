@@ -1,0 +1,371 @@
+#+TITLE: Publishing Documentation
+#+AUTHOR: Jaynams Ahh
+#+DATE: April 2, 2025
+#+OPTIONS: toc:2 num:t
+
+* Overview
+
+This document describes how to publish the documentation in this repository to GitHub Pages or other platforms using org-mode's publishing system.
+
+* Publishing with Org-Publish
+
+Org-mode includes a powerful publishing system that can convert org files to HTML, PDF, and other formats.
+
+** Basic Publishing Configuration
+
+Here's a basic configuration for publishing this documentation:
+
+#+BEGIN_SRC emacs-lisp
+(require 'ox-publish)
+
+(setq org-publish-project-alist
+      '(("count-fig-docs"
+         :base-directory "~/count_fig/docs/"
+         :base-extension "org"
+         :publishing-directory "~/count_fig/docs/html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble t
+         :section-numbers nil
+         :author "Jaynams Ahh"
+         :email ""
+         :auto-sitemap t
+         :sitemap-filename "sitemap.org"
+         :sitemap-title "Site Map"
+         :sitemap-sort-files anti-chronologically
+         :sitemap-file-entry-format "%t")))
+#+END_SRC
+
+** Extended Configuration with Theme
+
+For a more customized appearance, you can extend the configuration:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-publish-project-alist
+      '(("count-fig-html"
+         :base-directory "~/count_fig/docs/"
+         :base-extension "org"
+         :publishing-directory "~/count_fig/docs/html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble t
+         :section-numbers nil
+         :with-toc t
+         :html-head "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\"/>"
+         :html-head-extra "<link rel=\"icon\" type=\"image/png\" href=\"./images/favicon.png\"/>"
+         :html-doctype "html5"
+         :html-html5-fancy t
+         :html-head-include-default-style nil)
+        
+        ("count-fig-static"
+         :base-directory "~/count_fig/docs/static/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/count_fig/docs/html/"
+         :recursive t
+         :publishing-function org-publish-attachment)
+        
+        ("count-fig-docs" :components ("count-fig-html" "count-fig-static"))))
+#+END_SRC
+
+* GitHub Pages Setup
+
+To publish this documentation to GitHub Pages:
+
+** Repository Setup
+
+1. Create a GitHub repository (if not already done)
+2. Push your count_fig repository to GitHub:
+
+#+BEGIN_SRC shell
+cd ~/count_fig
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/yourusername/count_fig.git
+git push -u origin main
+#+END_SRC
+
+** GitHub Pages Configuration
+
+1. Go to your repository on GitHub
+2. Navigate to Settings > Pages
+3. Select the branch to publish from (e.g., main or gh-pages)
+4. Select the folder to publish from (e.g., /docs or /docs/html)
+5. Click Save
+
+** Automated Publishing with GitHub Actions
+
+You can automate the publishing process using GitHub Actions:
+
+1. Create a file at `.github/workflows/publish.yml`:
+
+#+BEGIN_SRC yaml
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Set up Emacs
+        uses: purcell/setup-emacs@master
+        with:
+          version: 28.2
+
+      - name: Install Org
+        run: |
+          emacs --batch --eval "(require 'package)" \
+                         --eval "(add-to-list 'package-archives '(\"melpa\" . \"https://melpa.org/packages/\") t)" \
+                         --eval "(package-initialize)" \
+                         --eval "(package-refresh-contents)" \
+                         --eval "(package-install 'org)"
+
+      - name: Build site
+        run: |
+          emacs --batch --load docs/publish.el --funcall org-publish-all
+
+      - name: Publish to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: docs/html
+#+END_SRC
+
+2. Create a file at `docs/publish.el`:
+
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(package-initialize)
+(require 'ox-publish)
+
+(setq org-publish-project-alist
+      '(("count-fig-docs"
+         :base-directory "./docs/"
+         :base-extension "org"
+         :publishing-directory "./docs/html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble t
+         :section-numbers nil
+         :author "Jaynams Ahh"
+         :email ""
+         :auto-sitemap t
+         :sitemap-filename "sitemap.org"
+         :sitemap-title "Site Map"
+         :sitemap-sort-files anti-chronologically
+         :sitemap-file-entry-format "%t")))
+
+(org-publish-all t)
+#+END_SRC
+
+* PDF Export
+
+To create PDF documentation:
+
+** Setup
+
+1. Ensure you have a LaTeX distribution installed
+2. Install the necessary LaTeX packages
+
+** Manual Export
+
+1. Open an org file in Emacs
+2. Use `C-c C-e l p` to export to PDF via LaTeX
+
+** Batch Export
+
+Create a script to export all documents to PDF:
+
+#+BEGIN_SRC emacs-lisp
+(require 'ox-publish)
+(require 'ox-latex)
+
+(setq org-publish-project-alist
+      '(("count-fig-pdf"
+         :base-directory "~/count_fig/docs/"
+         :base-extension "org"
+         :publishing-directory "~/count_fig/docs/pdf/"
+         :recursive t
+         :publishing-function org-latex-publish-to-pdf
+         :headline-levels 4
+         :section-numbers nil
+         :with-toc t)))
+
+(org-publish-project "count-fig-pdf")
+#+END_SRC
+
+Save this as `export-pdf.el` and run:
+
+#+BEGIN_SRC shell
+emacs --batch -l export-pdf.el
+#+END_SRC
+
+* Custom Styling
+
+** CSS for HTML Export
+
+Create a CSS file at `docs/static/css/org.css` for custom styling:
+
+#+BEGIN_SRC css
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f8f8f8;
+    line-height: 1.6;
+}
+
+.title {
+    color: #2c3e50;
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5em;
+}
+
+#content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2c3e50;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+code {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 0 5px;
+    font-family: 'Courier New', monospace;
+}
+
+pre {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+pre code {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.tag {
+    background-color: #3498db;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.todo {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+.done {
+    color: #27ae60;
+    font-weight: bold;
+}
+#+END_SRC
+
+** LaTeX Templates for PDF Export
+
+You can customize the LaTeX output by setting up a custom class:
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("count-fig-doc"
+                 "\\documentclass[11pt,a4paper]{article}
+                  \\usepackage[utf8]{inputenc}
+                  \\usepackage{graphicx}
+                  \\usepackage{hyperref}
+                  \\usepackage{longtable}
+                  \\usepackage{wrapfig}
+                  \\usepackage{rotating}
+                  \\usepackage[normalem]{ulem}
+                  \\usepackage{amsmath}
+                  \\usepackage{textcomp}
+                  \\usepackage{amssymb}
+                  \\usepackage{capt-of}
+                  \\usepackage{hyperref}
+                  \\usepackage{minted}
+                  \\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+                  \\usepackage{fancyhdr}
+                  \\pagestyle{fancy}
+                  \\lhead{Count Fig Documentation}
+                  \\rhead{\\today}
+                  \\lfoot{Jaynams Ahh}
+                  \\rfoot{\\thepage}
+                  \\renewcommand{\\headrulewidth}{0.4pt}
+                  \\renewcommand{\\footrulewidth}{0.4pt}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+;; Use syntax highlighting in LaTeX export
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
