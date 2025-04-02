@@ -95,6 +95,11 @@
 ;; Development tools and programming languages
 (define development-packages
   '("gcc-toolchain"
+    "make"
+    "automake"
+    "autoconf"
+    "libtool"
+    "pkg-config"
     "linux-libre-headers"
     "vscodium"
     "python"
@@ -113,7 +118,6 @@
 (define python-packages
   '("python-ta-lib"
     "ta-lib"
-    "conda"
     ;; Emacs Python development support
     "python-pip"
     "python-black"
@@ -154,7 +158,7 @@
         ;; Set environment variables
         (simple-service 'extended-env-vars-service
                       home-environment-variables-service-type
-                      `(("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$PATH")
+                      `(("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH")
                         ("SHELL" . ,(file-append zsh "/bin/zsh"))
                         ("XDG_DATA_DIRS" . "/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
 
