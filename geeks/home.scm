@@ -8,7 +8,7 @@
              (gnu home services shells)
              (gnu packages)
              (gnu packages shells)
-             (gnu packages emacs)    ;; Added for Emacs packages
+             (gnu packages emacs)   ;; Added for Emacs packages
              (nongnu packages mozilla))
 
 ;; =====================
@@ -140,7 +140,8 @@
     "nextcloud-client"
     "kdeconnect"
     "zsh"
-    "rbw"))
+    "rbw"
+    "spotifyd"))
 
 ;; =====================
 ;; Home environment setup

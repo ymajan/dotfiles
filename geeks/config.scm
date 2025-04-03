@@ -42,6 +42,7 @@
     (map specification->package '("gnome-tweaks"
 				  "gnome-shell-extensions"
 				  "gnome-system-monitor"
+				  "gnome-default-applications"
 				  "network-manager-applet"
 				  "modem-manager"
 				  "network-manager"
@@ -49,16 +50,16 @@
 				  "pinentry-gnome3" ;; graphical password entry
 				  "gnupg"
 				  "zsh"
-    			  "openssh"
-    			  "git"
+    			          "openssh"
+    			          "git"
 				  "gitg"
 				  "direnv"
-               	  "ripgrep"
-               	  "findutils"
-               	  "fd"
-    			  "firefox-esr-wayland"
+               	                  "ripgrep"
+               	                  "findutils"
+               	                  "fd"
+    			          "firefox-esr-wayland"
 				  "ungoogled-chromium-wayland"
-               	  "emacs-next-pgtk"))
+               	                  "emacs-next-pgtk"))
     %base-packages))
 
   ;; System services.
