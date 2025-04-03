@@ -138,6 +138,7 @@
   '("google-chrome-stable"
     "flatpak"
     "nextcloud-client"
+    "libreoffice"
     "kdeconnect"
     "zsh"
     "rbw"
