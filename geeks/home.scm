@@ -120,6 +120,7 @@
     "ta-lib"
     ;; Emacs Python development support
     "python-pip"
+    "python-pytest"
     "python-black"
     "python-pyflakes"
     "python-isort"
