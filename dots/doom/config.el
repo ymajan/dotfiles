@@ -51,6 +51,14 @@
 ;; org-anki has better card creation scheme for cloze cards
 (use-package! org-anki)
 
+
+(use-package! ispell
+  (setq ispell-program-name "aspell")
+  ;; Set your preferred dictionary
+  (setq ispell-dictionary "en_US")
+  ;; Configure any other ispell options you need
+  )
+
 ;; no-byte-compile: t
 ;; End:
 
