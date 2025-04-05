@@ -28,7 +28,12 @@ For authinfo org-caldav syntax
 TODO fix macos syncing
 
 ```
-machine cloud.jaynam.me:433 port https login ymajan password app-password
+machine cloud.jaynam.me:443 port https login ymajan password app-password
+```
+
+Zotero auth format
+```
+machine zotero port api password YOUR_TOKEN
 ```
 
 

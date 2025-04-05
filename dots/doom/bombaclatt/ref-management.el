@@ -28,10 +28,3 @@
   (if (and keywords (not (string-empty-p keywords)))
       (replace-regexp-in-string "," ":" keywords)
     ""))
-
-(use-package zotero
-  :custom
-  zotero-translator-dir "~/Zotero/translators"
-  zotero-storage-dir "~/Zotero"
-  zotero-cache-dir "/Users/ymajan/.config/emacs/.local/cache/zotero-cache"
-  zotero-backend 'better-bibtex)
