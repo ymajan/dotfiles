@@ -53,7 +53,7 @@
 
 
 (use-package! ispell
-  (setq ispell-program-name "aspell")
+  (setq ispell-program-name "ispell")
   ;; Set your preferred dictionary
   (setq ispell-dictionary "en_US")
   ;; Configure any other ispell options you need

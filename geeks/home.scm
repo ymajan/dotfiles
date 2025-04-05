@@ -135,7 +135,7 @@
     "texlive-dvisvgm"
     "pandoc"
     "markdown"
-    "aspell"))
+    "ispell"))
 
 ;; Desktop applications and utilities
 (define desktop-packages
