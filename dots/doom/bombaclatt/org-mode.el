@@ -42,7 +42,6 @@
 
 ;; org-journal
 (use-package org-journal
-  :ensure t
   :defer t
   :init
   ;; Change default prefix key; needs to be set before loading org-journal

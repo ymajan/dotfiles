@@ -112,7 +112,9 @@
     "graphviz"
     "gnuplot"
     "shfmt"
-    "shellcheck"))
+    "shellcheck"
+    "unzip"
+    "sqlite"))
 
 ;; Python-specific packages and tools
 (define python-packages
@@ -132,7 +134,8 @@
     "texlive-dvipng"
     "texlive-dvisvgm"
     "pandoc"
-    "markdown"))
+    "markdown"
+    "ispell"))
 
 ;; Desktop applications and utilities
 (define desktop-packages

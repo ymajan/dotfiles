@@ -4,7 +4,7 @@
   (org-roam-db-location "~/Documents/Codex/Org/Roameo/org-roam.db")
   (org-roam-directory (concat (file-name-as-directory org-directory) "Roameo"))
   (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Dailies"))
-  (org-roam-database-connector 'sqlite-builtin)
+  (org-roam-database-connector 'sqlite)
   (org-roam-completion-everywhere t)
   (org-roam-db-update-on-save t)
   (org-roam-link-auto-replace t)
@@ -22,7 +22,7 @@
       :target (file+head
                "Reference/${citar-citekey}.org"
                "#+title: ${note-title}
-#+filetags: :zotero: %(ymajan/citar-keywords-to-tags \"${citar-keywords}\")
+#+filetags: :zotero:%(ymajan/citar-keywords-to-tags\"${citar-keywords}\")
 %(let ((url \"${citar-url}\"))
    (if (and url (not (string-empty-p url)))
        (concat \"#+url: \" url \"\n\")
