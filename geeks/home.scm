@@ -122,11 +122,9 @@
     "ta-lib"
     ;; Emacs Python development support
     "python-pip"
-    "python-pytest"
     "python-black"
     "python-pyflakes"
-    "python-isort"
-    "python-nose"))
+    "python-isort"))
 
 ;; Document preparation and publishing tools
 (define document-packages
@@ -135,7 +133,7 @@
     "texlive-dvisvgm"
     "pandoc"
     "markdown"
-    "ispell"))
+    "enchant"))
 
 ;; Desktop applications and utilities
 (define desktop-packages
