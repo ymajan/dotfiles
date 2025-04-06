@@ -133,7 +133,8 @@
     "texlive-dvisvgm"
     "pandoc"
     "markdown"
-    "enchant"))
+    "enchant"
+    "aspell-dict-en"))
 
 ;; Desktop applications and utilities
 (define desktop-packages
