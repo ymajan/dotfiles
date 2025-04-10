@@ -18,12 +18,6 @@
       search-highlight t
       search-whitespace-regexp ".*?"
       gc-cons-threshold (* 50 1000 1000)) ; 50 MB
-      
-(use-package! evil
-  :init
-  (require 'evil)
-  :config
-  (evil-mode 1))
 
 (setq org-directory "~/Documents/Codex/Org/")
 (setq org-roam-directory "~/Documents/Codex/Org/Roameo/")
@@ -51,7 +45,6 @@
 
 ;; plantuml diagrams
 (setq plantuml-jar-path "~/.config/emacs/.local/etc/plantuml.jar")
-
 ;; anki-editor provides better media support
 (use-package! anki-editor)
 ;; org-anki has better card creation scheme for cloze cards
