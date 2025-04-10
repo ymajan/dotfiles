@@ -1,6 +1,4 @@
-# WIP!
-
-GNU Geeks, MacOS, and Doom Emacs Config Files
+# GNU Geeks, MacOS, and Doom Emacs Config Files
 
 GNU GEEKS symlinks
 
@@ -18,8 +16,9 @@ sudo ln -s /home/ymajan/count_fig/geeks/channels.scm
 User symlinks - none. Use ~/count_fig/geeks/home.scm.
 
 
-MackOS
-symlink ~/.zprofile
+MackOS symlinks
+
+symlink ~/.zprofile with
 ```
 ln -s ~/count_fig/macos/zprofile ~/.zprofile
 ```
