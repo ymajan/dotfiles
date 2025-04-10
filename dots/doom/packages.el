@@ -7,9 +7,11 @@
 (package! leetcode)
 (package! embark)
 (package! pdf-tools)
+(package! deft)
 (package! djvu)
 (package! nov)
-(package! deft)
+(package! nov-xwidget
+  :recipe (:host github :repo "chenyanming/nov-xwidget"))
 ;; (package! org-caldav) ;; hella buggy
 (package! secrets)
 (package! org-roam

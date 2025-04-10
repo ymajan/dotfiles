@@ -59,7 +59,7 @@
                	                  "fd"
     			          "firefox-esr-wayland"
 				  "ungoogled-chromium-wayland"
-               	                  "emacs-next-pgtk"))
+               	                  "emacs-pgtk-xwidgets"))
     %base-packages))
 
   ;; System services.

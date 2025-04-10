@@ -83,6 +83,21 @@
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   (setq nov-text-width 80)
   (setq nov-text-size 1.0))
+  
+(use-package nov-xwidget
+  :after (nov evil)
+  :config
+  (add-hook 'nov-mode-hook 'nov-xwidget-inject-all-files))
+(after! evil
+  (with-eval-after-load 'nov-xwidget
+    ;; Bind keys for nov-xwidget in normal state.
+    (evil-define-key 'normal nov-xwidget-webkit-mode-map
+      "n" 'nov-xwidget-next-document
+      "p" 'nov-xwidget-previous-document
+      "]" 'nov-xwidget-next-document
+      "[" 'nov-xwidget-previous-document
+      "t" 'nov-xwidget-goto-toc
+      "S" 'nov-xwidget-find-source-file)))
 
 (use-package! pdf-tools
   :config
