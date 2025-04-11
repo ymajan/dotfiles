@@ -8,7 +8,6 @@
 (package! leetcode)
 (package! embark)
 (package! pdf-tools)
-(package! deft)
 (package! djvu)
 (package! nov)
 

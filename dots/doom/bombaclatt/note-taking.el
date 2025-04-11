@@ -83,7 +83,7 @@
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   (setq nov-text-width 80)
   (setq nov-text-size 1.0))
-  
+
 (use-package! pdf-tools
   :config
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode)))
