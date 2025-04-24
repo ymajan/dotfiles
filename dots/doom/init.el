@@ -21,7 +21,7 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (corfu +icons +orderless +dabbrev); complete with cap(f), cape and a flying feather!
+       (corfu +icons +orderless +dabbrev)
        (vertico +icons +childframe)
 
        :ui
@@ -75,8 +75,8 @@
        ;;vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       (syntax +childframe)
-       ;; (spell +flyspell +everywhere +enchant)
+       ;; (syntax +childframe)
+       (spell +flyspell +everywhere +enchant)
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
