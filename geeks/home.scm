@@ -113,6 +113,7 @@
     "gnuplot"
     "shfmt"
     "shellcheck"
+    "hunspell"
     "unzip"
     "sqlite"))
 
@@ -143,7 +144,6 @@
     "nextcloud-client"
     "libreoffice"
     "kdeconnect"
-    "evolution"
     "zsh"
     "rbw"
     "spotifyd"))
