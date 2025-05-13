@@ -143,6 +143,7 @@
     "nextcloud-client"
     "libreoffice"
     "kdeconnect"
+    "evolution"
     "zsh"
     "rbw"
     "spotifyd"))
