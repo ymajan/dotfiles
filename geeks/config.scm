@@ -62,6 +62,7 @@
     "firefox-esr-wayland"
 		"ungoogled-chromium-wayland"
     "evolution"
+    "evolution-data-server"
     "emacs-pgtk-xwidgets"))
     %base-packages))
 

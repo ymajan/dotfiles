@@ -144,6 +144,8 @@
     "nextcloud-client"
     "libreoffice"
     "kdeconnect"
+    "evolution"
+    "evolution-data-server"
     "zsh"
     "rbw"
     "spotifyd"))
