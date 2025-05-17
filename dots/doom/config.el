@@ -8,6 +8,7 @@
 
 ;; startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(add-to-list 'exec-path "/home/ymajan/.guix-profile/bin")
 
 ;; initial variables
 (setq user-full-name "Jaynams Ahh"
@@ -17,7 +18,10 @@
       load-prefer-newer t
       search-highlight t
       search-whitespace-regexp ".*?"
-      gc-cons-threshold (* 50 1000 1000)) ; 50 MB
+      gc-cons-threshold (* 50 1000 1000) ; 50 MB
+      ispell-program-name "hunspell"
+      ispell-dictionary "en_US")
+
 
 (setq org-directory "~/Documents/Codex/Org/")
 (setq org-roam-directory "~/Documents/Codex/Org/Roameo/")

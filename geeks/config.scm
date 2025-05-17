@@ -59,6 +59,8 @@
     "ripgrep"
     "findutils"
     "fd"
+    "hunspell"
+    "hunspell-dict-en"
     "firefox-esr-wayland"
 		"ungoogled-chromium-wayland"
     "evolution"
