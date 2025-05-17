@@ -114,6 +114,7 @@
     "shfmt"
     "shellcheck"
     "hunspell"
+    "hunspell-dict-en"
     "unzip"
     "sqlite"))
 
