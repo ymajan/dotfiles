@@ -113,8 +113,6 @@
     "gnuplot"
     "shfmt"
     "shellcheck"
-    "hunspell"
-    "hunspell-dict-en"
     "unzip"
     "sqlite"))
 
@@ -136,7 +134,8 @@
     "pandoc"
     "markdown"
     "enchant"
-    "aspell-dict-en"))
+    "ispell"
+    "ispell-dict-en"))
 
 ;; Desktop applications and utilities
 (define desktop-packages
