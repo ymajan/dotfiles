@@ -134,8 +134,8 @@
     "pandoc"
     "markdown"
     "enchant"
-    "ispell"
-    "ispell-dict-en"))
+    "hunspell"
+    "hunspell-dict-en"))
 
 ;; Desktop applications and utilities
 (define desktop-packages
