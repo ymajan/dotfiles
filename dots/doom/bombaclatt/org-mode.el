@@ -14,7 +14,7 @@
   ;; org-refile
   (org-refile-targets `((,(expand-file-name "GTD/incubator.org" org-directory) :maxlevel . 1)
                         (,(expand-file-name "GTD/next_actions.org" org-directory) :maxlevel . 1)))
-  (org-refile-use-outline-path nil)       ; changed to t instead of 'file
+  (org-refile-use-outline-path nil)       ; set to nil instead of 'file
   (org-outline-path-complete-in-steps nil)
   (org-refile-allow-creating-parent-nodes t)    ; changed to t instead of 'confirm
   (org-refile-use-cache nil)
