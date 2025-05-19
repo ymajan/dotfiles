@@ -6,3 +6,7 @@
 *.scm#*
 .#*.scm
 .nextcloudsync*
+
+# Emacs projectile cache
+.projectile-cache.eld
+

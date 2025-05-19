@@ -27,10 +27,10 @@
 (setq org-roam-directory "~/Documents/Codex/Org/Roameo/")
 
 ;; load in elisp config files
-(load! "bombaclatt/note-taking")
-(load! "bombaclatt/org-mode")
-(load! "bombaclatt/macos-modifiers")
-(load! "bombaclatt/ref-management")
+(load! "modules/org/note-taking")
+(load! "modules/org/org-mode")
+(load! "modules/os/macos-modifiers")
+(load! "modules/reference/ref-management")
 
 ;; def search
 (use-package deft
