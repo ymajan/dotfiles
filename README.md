@@ -23,3 +23,7 @@ symlink ~/.zprofile with
 ln -s ~/count_fig/macos/zprofile ~/.zprofile
 ```
 
+
+
+## Doom Emacs
+Configuration lives in `dots/doom`. Additional modules are under `dots/doom/modules` as documented in its README.
