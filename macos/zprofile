@@ -1,8 +1,8 @@
 # Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"\
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Conda
-eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+eval "$(conda shell.$(basename "${SHELL}") hook)"
 
 # Direnv
 eval "$(direnv hook zsh)"
