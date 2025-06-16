@@ -1,14 +1,15 @@
 (use-modules (gnu services)
-	     (gnu system shadow)
+             (gnu system shadow)
              (guix gexp)
              (guix channels)
-             (guix profiles)
              (gnu home)
              (gnu home services)
              (gnu home services guix)
              (gnu home services shells)
              (gnu packages)
-             (gnu packages shells))
+             (gnu packages shells)
+             (gnu packages emacs)   ;; Added for Emacs packages
+             (nongnu packages mozilla))
 
 ;; =====================
 ;; Channel configuration
@@ -80,11 +81,11 @@
 (define home-channels
   (append 
     (list %nonguix-channel
-    	  ;; %guix-channel
           %guix-science-channel
           %guix-science-nonfree-channel
           %crypto-channel
-          %guix-cran-channel)
+          %guix-cran-channel
+          %guix-channel)
     %default-channels))
 
 ;; =================
@@ -93,30 +94,60 @@
 
 ;; Development tools and programming languages
 (define development-packages
-  '("gcc-toolchain"))
+  '("gcc-toolchain"
+    "make"
+    "automake"
+    "autoconf"
+    "libtool"
+    "pkg-config"
+    "linux-libre-headers"
+    "vscodium"
+    "python"
+    "emacs-next-pgtk"              ;; Added explicit Emacs package
+    "emacs-doom-themes"  ;; Added for Doom Emacs
+    "node"
+    "openjdk"
+    "plantuml"
+    "wl-clipboard"
+    "graphviz"
+    "gnuplot"
+    "shfmt"
+    "shellcheck"
+    "unzip"
+    "sqlite"))
 
 ;; Python-specific packages and tools
 (define python-packages
-  '("python-pip"
+  '("python-ta-lib"
+    "ta-lib"
+    ;; Emacs Python development support
+    "python-pip"
     "python-black"
-    "python-pyflakes"))
+    "python-pyflakes"
+    "python-isort"))
 
 ;; Document preparation and publishing tools
 (define document-packages
-  '("pandoc"))
+  '("texlive-scheme-basic"
+    "texlive-dvipng"
+    "texlive-dvisvgm"
+    "pandoc"
+    "markdown"
+    "enchant"
+    "hunspell"
+    "hunspell-dict-en"))
 
 ;; Desktop applications and utilities
 (define desktop-packages
-  '("flatpak"
+  '("google-chrome-stable"
+    "flatpak"
+    "nextcloud-client"
     "libreoffice"
-    "zotero"))
-
-(define gnome-packages
-  '("evolution"
-    "gnome"
+    "kdeconnect"
     "evolution"
-    ;; extensions
-    "gnome-shell-extension-gsconnect"))
+    "zsh"
+    "rbw"
+    "spotifyd"))
 
 ;; =====================
 ;; Home environment setup
@@ -127,18 +158,16 @@
             (append development-packages
                     python-packages
                     document-packages
-                    desktop-packages
-                    gnome-packages)))
+                    desktop-packages)))
   (services
     (append
       (list
         ;; Set environment variables
         (simple-service 'extended-env-vars-service
                       home-environment-variables-service-type
-                      `(
-                        ;; ("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH")
-                        ("XDG_DATA_DIRS" . 
-                         "/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
+                      `(("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH")
+                        ("SHELL" . ,(file-append zsh "/bin/zsh"))
+                        ("XDG_DATA_DIRS" . "/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
 
         ;; Configure channels for package sources
         (service home-channels-service-type home-channels)
@@ -157,6 +186,6 @@
         (service home-zsh-service-type
                 (home-zsh-configuration
                   (environment-variables
-                    `(("DOOMDIR" . "$HOME/Documents/count_fig/dots/doom/"))))))
+                    `(("DOOMDIR" . "$HOME/count_fig/dots/doom/"))))))
 
       %base-home-services)))

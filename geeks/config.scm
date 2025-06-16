@@ -10,7 +10,7 @@
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
 (use-modules (gnu) (gnu packages shells) (nongnu packages linux) (nongnu system linux-initrd))
-(use-service-modules base desktop networking ssh pm cups dbus)
+(use-service-modules base desktop networking ssh pm cups dbus authentication)
 
 (operating-system
   (kernel linux)
@@ -37,13 +37,16 @@
   ;; Packages installed system-wide.  Users can also install packages
   ;; under their own account: use 'guix search KEYWORD' to search
   ;; for packages and 'guix install PACKAGE' to install a package.
-  (packages (append (list (specification->package "openssh")
-                          (specification->package "gnupg")
-                          (specification->package "zsh")
+  (packages (append (list (specification->package "zsh")
                           (specification->package "git")
-			  (specification->package "rbw")
+                          (specification->package "gnupg")
+                          (specification->package "openssh")
+                          (specification->package "rbw")
+                          (specification->package "seahorse")
+                          (specification->package "bitwarden-desktop")
 			  (specification->package "vscodium")
                           (specification->package "firefox")
+                          (specification->package "google-chrome-stable")
                           (specification->package "emacs-pgtk-xwidgets"))
                     %base-packages))
 
@@ -55,6 +58,7 @@
                  ;; To configure OpenSSH, pass an 'openssh-configuration'
                  ;; record as a second argument to 'service' below.
                  (service openssh-service-type)
+                 (service fprintd-service-type)
                  (service tor-service-type)
                  (service cups-service-type)
                  (service bluetooth-service-type)
