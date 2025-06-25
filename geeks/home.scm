@@ -137,6 +137,8 @@
                       home-environment-variables-service-type
                       `(
                         ;; ("PATH" . "$HOME/.config/emacs/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH")
+                        ("PATH" . 
+                         "$HOME/.config/emacs/bin:$HOME/.local/bin:$PATH")
                         ("XDG_DATA_DIRS" . 
                          "/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS")))
 

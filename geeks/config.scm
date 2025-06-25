@@ -9,7 +9,12 @@
 
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
-(use-modules (gnu) (gnu packages shells) (nongnu packages linux) (nongnu system linux-initrd))
+(use-modules 
+  (gnu) 
+  (gnu packages shells)
+  (gnu packages cups)
+  (nongnu packages linux) 
+  (nongnu system linux-initrd))
 (use-service-modules base desktop networking ssh pm cups dbus authentication)
 
 (operating-system
@@ -40,14 +45,22 @@
   (packages (append (list (specification->package "zsh")
                           (specification->package "git")
                           (specification->package "gnupg")
+                          ;; printing
+                          (specification->package "cups-filters")
+                          (specification->package "foomatic-filters")
+                          (specification->package "ghostscript")
+                          (specification->package "hplip-minimal")
+                          ;; cli
                           (specification->package "openssh")
                           (specification->package "rbw")
                           (specification->package "seahorse")
+                          ;; desktop
                           (specification->package "bitwarden-desktop")
 			  (specification->package "vscodium")
                           (specification->package "firefox")
                           (specification->package "google-chrome-stable")
-                          (specification->package "emacs-pgtk-xwidgets"))
+                          ;;(specification->package "emacs-pgtk-xwidgets")
+                          (specification->package "emacs-pgtk"))
                     %base-packages))
 
   ;; Below is the list of system services.  To search for available
@@ -58,10 +71,14 @@
                  ;; To configure OpenSSH, pass an 'openssh-configuration'
                  ;; record as a second argument to 'service' below.
                  (service openssh-service-type)
-                 (service fprintd-service-type)
                  (service tor-service-type)
-                 (service cups-service-type)
                  (service bluetooth-service-type)
+                 (service fprintd-service-type)
+                 (service cups-service-type
+                   (cups-configuration
+                     (web-interface? #t)          ; enable http://localhost:631
+                     (extensions (list cups-filters hplip-minimal foomatic-filters))))
+                     
                  ;; (service modem-manager-service-type) TODO - setup sim card
                  (service tlp-service-type (tlp-configuration (sched-powersave-on-bat? #t)
                						      (cpu-scaling-governor-on-ac (list "performance"))
