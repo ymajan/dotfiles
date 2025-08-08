@@ -22,7 +22,7 @@
       ispell-program-name "hunspell"
       ispell-dictionary "en_US")
 
-
+;; used with org-roam-publish-ui
 (setq org-directory "~/Documents/Codex/Org/")
 (setq org-roam-directory "~/Documents/Codex/Org/Roameo/")
 
