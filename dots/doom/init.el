@@ -76,8 +76,8 @@
 
        :checkers
        ;; (syntax +childframe)
-       ;; (spell +flyspell +everywhere +enchant)
-       ;;grammar           ; tasing grammar mistake every you make
+       ;; (spell +aspell +everywhere)
+       ;; grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible

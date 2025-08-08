@@ -93,17 +93,19 @@
 
 ;; Development tools and programming languages
 (define development-packages
-  '("gcc-toolchain"))
+  '("gcc-toolchain"
+    "hunspell"
+    "hunspell-dict-en-us"))
 
 ;; Python-specific packages and tools
 (define python-packages
-  '("python-pip"
-    "python-black"
-    "python-pyflakes"))
+  '("python"))
+
 
 ;; Document preparation and publishing tools
 (define document-packages
-  '("pandoc"))
+  '("pandoc"
+    "rclone"))
 
 ;; Desktop applications and utilities
 (define desktop-packages
@@ -115,20 +117,42 @@
   '("evolution"
     "gnome"
     "evolution"
-    ;; extensions
-    "gnome-shell-extension-gsconnect"))
+    "gnome-shell-extension-gsconnect"
+    "gnome-shell-extension-clipboard-indicator"
+    "gnome-shell-extension-appindicator"
+    "gnome-shell-extension-vitals"
+    "gnome-shell-extension-just-perfection"
+    "gnome-shell-extension-dash-to-panel"
+    "gnome-shell-extension-customize-ibus"
+    "gnome-shell-extension-burn-my-windows"
+    "endeavour"
+    "kdeconnect"))
+    
+(define fonts-packages
+  '("font-dejavu"
+    "font-liberation"
+    "font-google-noto"
+    "font-google-noto-emoji"
+    "font-adobe-source-sans"
+    "font-adobe-source-serif"
+    "font-gnu-freefont"))
+
 
 ;; =====================
 ;; Home environment setup
 ;; =====================
 
 (home-environment
-  (packages (specifications->packages
-            (append development-packages
-                    python-packages
-                    document-packages
-                    desktop-packages
-                    gnome-packages)))
+  (packages
+    (append
+      (specifications->packages
+        (append development-packages
+                python-packages
+                document-packages
+                desktop-packages
+                gnome-packages
+                fonts-packages))))
+
   (services
     (append
       (list

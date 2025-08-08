@@ -43,37 +43,39 @@
   ;; under their own account: use 'guix search KEYWORD' to search
   ;; for packages and 'guix install PACKAGE' to install a package.
   (packages (append (list (specification->package "zsh")
+  			  (specification->package "python")
                           (specification->package "git")
                           (specification->package "gnupg")
+                          (specification->package "openssh")
+                          ;; emacs
+                          (specification->package "ripgrep")
+                          (specification->package "fd")
                           ;; printing
                           (specification->package "cups-filters")
                           (specification->package "foomatic-filters")
                           (specification->package "ghostscript")
                           (specification->package "hplip-minimal")
-                          ;; cli
-                          (specification->package "openssh")
-                          (specification->package "rbw")
-                          (specification->package "seahorse")
                           ;; desktop
-                          (specification->package "bitwarden-desktop")
+                          (specification->package "seahorse")
 			  (specification->package "vscodium")
                           (specification->package "firefox")
                           (specification->package "google-chrome-stable")
                           ;;(specification->package "emacs-pgtk-xwidgets")
-                          (specification->package "emacs-pgtk"))
+                          (specification->package "emacs-pgtk")
+                          (specification->package "pinentry-gnome3")
+                          (specification->package "pinentry-qt"))
                     %base-packages))
 
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
   (services
    (append (list (service gnome-desktop-service-type)
-
+		 (service plasma-desktop-service-type)
                  ;; To configure OpenSSH, pass an 'openssh-configuration'
                  ;; record as a second argument to 'service' below.
                  (service openssh-service-type)
                  (service tor-service-type)
                  (service bluetooth-service-type)
-                 (service fprintd-service-type)
                  (service cups-service-type
                    (cups-configuration
                      (web-interface? #t)          ; enable http://localhost:631
