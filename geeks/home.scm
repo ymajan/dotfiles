@@ -111,7 +111,8 @@
 (define desktop-packages
   '("flatpak"
     "libreoffice"
-    "zotero"))
+    "zotero"
+    "spotifyd"))
 
 (define gnome-packages
   '("evolution"
