@@ -7,6 +7,8 @@
              (gnu home services)
              (gnu home services guix)
              (gnu home services shells)
+             (gnu home services desktop)
+             (gnu home services sound)
              (gnu packages)
              (gnu packages shells))
 
@@ -111,8 +113,7 @@
 (define desktop-packages
   '("flatpak"
     "libreoffice"
-    "zotero"
-    "spotifyd"))
+    "zotero"))
 
 (define gnome-packages
   '("evolution"
@@ -128,6 +129,13 @@
     "gnome-shell-extension-burn-my-windows"
     "endeavour"
     "kdeconnect"))
+    
+(define sound-packages
+  '("pipewire"
+    "wireplumber"
+    "helvum"
+    "cable"
+    "spotifyd"))
     
 (define fonts-packages
   '("font-dejavu"
@@ -152,11 +160,19 @@
                 document-packages
                 desktop-packages
                 gnome-packages
-                fonts-packages))))
+                fonts-packages
+                sound-packages))))
 
   (services
     (append
       (list
+        
+        ;; for pipewire
+        (service home-dbus-service-type)
+        
+        ;; switch from pulseaudio to pipewire
+        (service home-pipewire-service-type) 
+        
         ;; Set environment variables
         (simple-service 'extended-env-vars-service
                       home-environment-variables-service-type
