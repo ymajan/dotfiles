@@ -103,6 +103,9 @@
 (define python-packages
   '("python"))
 
+(define doom-emacs-packages
+  '("node"))
+
 
 ;; Document preparation and publishing tools
 (define document-packages

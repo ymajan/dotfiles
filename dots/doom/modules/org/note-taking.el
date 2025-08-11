@@ -2,8 +2,8 @@
 (use-package org-roam
   :custom
   (org-roam-db-location "~/Documents/Codex/Org/Roameo/org-roam.db")
-  (org-roam-directory (concat (file-name-as-directory org-directory) "Roameo"))
-  (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Dailies"))
+  (org-roam-directory (concat (file-name-as-directory org-directory) "Roam"))
+  (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Log"))
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere t)
   (org-roam-db-update-on-save t)
@@ -16,11 +16,11 @@
                          "#+title: %<%Y-%m-%d>\n"))))
   (org-roam-capture-templates
    '(
-     ("z" "zotero zettel"
+     ("z" "zotero zettel, very scholarly"
       plain
       "%?"
       :target (file+head
-               "Reference/${citar-citekey}.org"
+               "Roam/${citar-citekey}.org"
                "#+title: ${note-title}
 #+filetags: :zotero:%(ymajan/citar-keywords-to-tags\"${citar-keywords}\")
 %(let ((url \"${citar-url}\"))
@@ -28,13 +28,13 @@
        (concat \"#+url: \" url \"\n\")
        \"\"))")
       :unnarrowed t)
-     ("r" "reference zettel"
+     ("r" "web zettel, a wettel"
       plain
       "%?"
       :target (file+head
-               "Reference/${slug}.org"
+               "Roam/${slug}.org"
                "#+title: ${title}
-#+filetags: :url:
+#+url: :url:
 %(let ((url \"${citar-url}\"))
    (if (and url (not (string-empty-p url)))
        (concat \"#+url: \" url \"\n\")
@@ -43,14 +43,14 @@
      ("n" "org-roam note"
       plain
       "%?"
-      :target (file+head "Psimatic/${slug}.org"
+      :target (file+head "Roam/${slug}.org"
                          "#+title: ${title}\n")
       :unnarrowed t))))
 
 
 ;; tag new nodes as zygoat if not a journal file
 (defun ymajan/tag-new-node-as-zygoat ()
-  (unless (string-match-p "Dailies" (buffer-file-name))
+  (unless (string-match-p "Log" (buffer-file-name))
     (org-roam-tag-add '("zygoat"))))
 
 (add-hook 'org-roam-capture-new-node-hook #'ymajan/tag-new-node-as-zygoat)
@@ -68,8 +68,8 @@
 (use-package org-noter
   :after (:all org pdf-tools djvu)
   :custom
-  (org-noter-notes-search-path (list (expand-file-name "Reference" org-roam-directory)))
-  (org-noter-default-notes-file-names '("notes.org"))
+  (org-noter-notes-search-path (list (expand-file-name "Roam" org-roam-directory)))
+  (org-noter-default-notes-file-names '("deletemeyoufdup.org"))
   ;; (org-noter-always-create-frame nil)
   ;; (org-noter-auto-save-last-location t)
   ;; (org-noter-highlight-selected-text t)

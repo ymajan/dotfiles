@@ -6,7 +6,7 @@
   :custom
   (citar-bibliography (expand-file-name "biblio.bib" org-directory))
   (citar-library-paths (list (expand-file-name "~/Documents/Codex/zotero/")))
-  (citar-notes-paths (expand-file-name "Reference/" org-roam-directory)))
+  (citar-notes-paths (expand-file-name "Roam/" org-roam-directory)))
 
 (use-package citar-embark
   :after (citar embark)
