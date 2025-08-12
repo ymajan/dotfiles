@@ -4,9 +4,11 @@
   :hook ((LaTeX-mode . citar-capf-setup)
          (org-mode . citar-capf-setup))
   :custom
+  (citar-org-cite-backend t)
   (citar-bibliography (expand-file-name "biblio.bib" org-directory))
   (citar-library-paths (list (expand-file-name "~/Documents/Codex/zotero/")))
-  (citar-notes-paths (expand-file-name "Roam/" org-roam-directory)))
+  (citar-notes-paths (list (expand-file-name "References/" org-roam-directory)
+                           (expand-file-name "Roam/" org-directory))))
 
 (use-package citar-embark
   :after (citar embark)

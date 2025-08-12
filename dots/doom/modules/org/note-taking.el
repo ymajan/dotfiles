@@ -1,7 +1,7 @@
 ;; org-roam configuration
 (use-package org-roam
   :custom
-  (org-roam-db-location "~/Documents/Codex/Org/Roameo/org-roam.db")
+  (org-roam-db-location "~/Documents/Codex/Roameo/org-roam.db")
   (org-roam-directory (concat (file-name-as-directory org-directory) "Roam"))
   (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Log"))
   (org-roam-database-connector 'sqlite-builtin)

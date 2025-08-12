@@ -82,7 +82,7 @@
 (define home-channels
   (append 
     (list %nonguix-channel
-    	  ;; %guix-channel
+    	  %guix-channel
           %guix-science-channel
           %guix-science-nonfree-channel
           %crypto-channel
@@ -121,6 +121,7 @@
 (define gnome-packages
   '("evolution"
     "gnome"
+    "gnome-tweaks"
     "evolution"
     "gnome-shell-extension-gsconnect"
     "gnome-shell-extension-clipboard-indicator"
