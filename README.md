@@ -1,29 +1,27 @@
-# GNU Geeks, MacOS, and Doom Emacs Config Files
+# GNU Guix, MacOS, and Doom Emacs Config Files
 
-GNU GEEKS symlinks
+# GNU Guix symlinks
 
-System symlinks
+## System symlinks
 cd /etc and symlink config.scm with
 ```
-sudo ln -s /home/ymajan/count_fig/geeks/config.scm
+sudo ln -s /home/ymajan/dotfiles/geeks/config.scm
 ```
 
 cd /etc/guix and symlink channels.scm with
 ```
-sudo ln -s /home/ymajan/count_fig/geeks/channels.scm
+sudo ln -s /home/ymajan/dotfiles/geeks/channels.scm
 ```
 
-User symlinks - none. Use ~/count_fig/geeks/home.scm.
-
-
-MackOS symlinks
-
-symlink ~/.zprofile with
+## User symlinks - none. 
 ```
-ln -s ~/count_fig/macos/zprofile ~/.zprofile
+guix home reconfigure ~/dotfiles/geeks/home.scm
 ```
 
 
+# MacOS symlinks - stow
 
-## Doom Emacs
-Configuration lives in `dots/doom`. Additional modules are under `dots/doom/modules` as documented in its README.
+cd ~/dotfiles and symlink ~/.zprofile and ~/.zshrc with
+```
+stow zsh
+```
