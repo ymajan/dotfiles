@@ -1,0 +1,18 @@
+# How to generate the brewfile
+
+brew bundle dump --describe --force --file=~/dotfiles/brew/Brewfile
+
+
+# How to reinstall everything from the brewfile
+
+brew bundle --file=~/dotfiles/brew/Brewfile
+
+
+# Check without changing anything
+
+brew bundle check --file=~/dotfiles/brew/Brewfile
+
+
+# Remove things not in the file (careful):
+
+brew bundle cleanup --force --file=~/dotfiles/brew/Brewfile
