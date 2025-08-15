@@ -1,0 +1,20 @@
+* installing emacs-mac macport with max features + modern icon + natural title bar
+
+brew tap railwaycat/emacsmacport
+
+brew install railwaycat/emacsmacport/emacs-mac@29 \
+  --with-native-compilation \
+  --with-tree-sitter \
+  --with-xwidgets \
+  --with-dbus \
+  --with-glib \
+  --with-imagemagick \
+  --with-librsvg \
+  --with-mac-metal \
+  --with-natural-title-bar \
+  --with-starter \
+  --with-unlimited-select \
+  --with-ctags \
+  --with-modern-icon
+
+* set DOOM Emacs directory in zprofile
