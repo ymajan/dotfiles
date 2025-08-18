@@ -7,8 +7,8 @@
   (citar-org-cite-backend t)
   (citar-bibliography (expand-file-name "biblio.bib" org-directory))
   (citar-library-paths (list (expand-file-name "~/Documents/Codex/zotero/")))
-  (citar-notes-paths (list (expand-file-name "References/" org-roam-directory)
-                           (expand-file-name "Roam/" org-directory))))
+  (citar-notes-paths (list (expand-file-name "References/" org-directory)
+                           (expand-file-name "Thoughts/" org-roam-directory))))
 
 (use-package citar-embark
   :after (citar embark)

@@ -23,8 +23,8 @@
       ispell-dictionary "en_US")
 
 ;; used with org-roam-publish-ui
-(setq org-directory "~/Documents/Codex/Org/")
-(setq org-roam-directory "~/Documents/Codex/Org/Roameo/")
+(setq org-directory "~/Documents/Codex/")
+(setq org-roam-directory "~/Documents/Codex/Roameo/")
 
 ;; load in elisp config files
 (load! "modules/org/note-taking")
@@ -49,10 +49,9 @@
 
 ;; plantuml diagrams
 (setq plantuml-jar-path "~/.config/emacs/.local/etc/plantuml.jar")
+
 ;; anki-editor provides better media support
 (use-package! anki-editor)
-;; org-anki has better card creation scheme for cloze cards
-(use-package! org-anki)
 
 
 ;; no-byte-compile: t

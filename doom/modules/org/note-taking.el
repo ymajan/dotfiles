@@ -2,7 +2,7 @@
 (use-package org-roam
   :custom
   (org-roam-db-location "~/Documents/Codex/Roameo/org-roam.db")
-  (org-roam-directory (concat (file-name-as-directory org-directory) "Roam"))
+  (org-roam-directory (concat (file-name-as-directory org-directory) "Roameo"))
   (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Log"))
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere t)
@@ -20,7 +20,7 @@
       plain
       "%?"
       :target (file+head
-               "Roam/${citar-citekey}.org"
+               "Thoughts/${citar-citekey}.org"
                "#+title: ${note-title}
 #+filetags: :zotero:%(ymajan/citar-keywords-to-tags\"${citar-keywords}\")
 %(let ((url \"${citar-url}\"))
@@ -32,7 +32,7 @@
       plain
       "%?"
       :target (file+head
-               "Roam/${slug}.org"
+               "Thoughts/${slug}.org"
                "#+title: ${title}
 #+url: :url:
 %(let ((url \"${citar-url}\"))
@@ -43,7 +43,7 @@
      ("n" "org-roam note"
       plain
       "%?"
-      :target (file+head "Roam/${slug}.org"
+      :target (file+head "Thoughts/${slug}.org"
                          "#+title: ${title}\n")
       :unnarrowed t))))
 
@@ -68,7 +68,7 @@
 (use-package org-noter
   :after (:all org pdf-tools djvu)
   :custom
-  (org-noter-notes-search-path (list (expand-file-name "Roam" org-roam-directory)))
+  (org-noter-notes-search-path (list (expand-file-name "Thoughts" org-roam-directory)))
   (org-noter-default-notes-file-names '("deletemeyoufdup.org"))
   ;; (org-noter-always-create-frame nil)
   ;; (org-noter-auto-save-last-location t)
