@@ -53,6 +53,11 @@
 ;; anki-editor provides better media support
 (use-package! anki-editor)
 
+(use-package wakatime-mode
+  :ensure t)
+
+(global-wakatime-mode)
+
 
 ;; no-byte-compile: t
 ;; End:

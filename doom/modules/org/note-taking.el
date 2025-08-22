@@ -34,7 +34,6 @@
       :target (file+head
                "Thoughts/${slug}.org"
                "#+title: ${title}
-#+url: :url:
 %(let ((url \"${citar-url}\"))
    (if (and url (not (string-empty-p url)))
        (concat \"#+url: \" url \"\n\")
@@ -44,7 +43,7 @@
       plain
       "%?"
       :target (file+head "Thoughts/${slug}.org"
-                         "#+title: ${title}\n")
+                         "#+title: ${title}")
       :unnarrowed t))))
 
 
@@ -54,6 +53,13 @@
     (org-roam-tag-add '("zygoat"))))
 
 (add-hook 'org-roam-capture-new-node-hook #'ymajan/tag-new-node-as-zygoat)
+
+;; Set Default Anki Deck
+(defun ymajan/add-anki-deck-property ()
+  (unless (string-match-p "Log" (buffer-file-name))
+    (org-set-property "ANKI_DECK" "Thoughts")))
+
+(add-hook 'org-roam-capture-new-node-hook #'ymajan/add-anki-deck-property)
 
 
 (cl-defmethod org-roam-node-type ((node org-roam-node))
