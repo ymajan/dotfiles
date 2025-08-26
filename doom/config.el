@@ -8,23 +8,18 @@
 
 ;; startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-(add-to-list 'exec-path "/home/ymajan/.guix-profile/bin")
+(add-to-list 'exec-path "/home/ymajan/.guix-profile/bin") ;; TODO WHY'D I ADD THIS?
 
 ;; initial variables
 (setq user-full-name "Jaynams Ahh"
       doom-theme 'doom-henna
       custom-file (expand-file-name "custom.el" doom-user-dir)
-      display-line-numbers-type t
-      load-prefer-newer t
-      search-highlight t
-      search-whitespace-regexp ".*?"
-      gc-cons-threshold (* 50 1000 1000) ; 50 MB
-      ispell-program-name "hunspell"
-      ispell-dictionary "en_US")
+      gc-cons-threshold (* 50 1000 1000))
 
-;; used with org-roam-publish-ui
-(setq org-directory "~/Documents/Codex/")
-(setq org-roam-directory "~/Documents/Codex/Roameo/")
+(use-package auth-source
+  :config
+  (setq auth-source-sources '("~/secrets/.authinfo.gpg")
+        auth-source-cache-expiry 3600))
 
 ;; load in elisp config files
 (load! "modules/org/note-taking")
@@ -38,7 +33,6 @@
   (deft-directory "~/Documents/Codex/")
   (deft-extensions '("org" "md" "txt" "ipynb"))
   (deft-recursive t)
-  (deft-use-filename-as-title t)
   (deft-auto-save-interval 0))
 
 (use-package mathpix.el
@@ -54,10 +48,8 @@
 (use-package! anki-editor)
 
 (use-package wakatime-mode
-  :ensure t)
-
-(global-wakatime-mode)
-
+  :init
+  (global-wakatime-mode))
 
 ;; no-byte-compile: t
 ;; End:

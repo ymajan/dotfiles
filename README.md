@@ -1,8 +1,10 @@
 # GNU Guix, MacOS, and Doom Emacs Config Files
 
-# GNU Guix symlinks
+# Step 1
 
-## System symlinks
+## GNU Guix symlinks
+
+### System symlinks
 
 cd /etc and symlink config.scm with
 ```
@@ -14,16 +16,20 @@ cd /etc/guix and symlink channels.scm with
 sudo ln -s /home/ymajan/dotfiles/geeks/channels.scm
 ```
 
-## User symlinks - none
+### User symlinks - none
 
 ```
 guix home reconfigure ~/dotfiles/geeks/home.scm
 ```
 
 
-# MacOS symlinks - stow
+## MacOS symlinks - stow
 
-cd ~/dotfiles and symlink ~/.zprofile and ~/.zshrc with
+cd ~/dotfiles and stow symlinks with
 ```
-stow zsh
+stow zsh-mac
 ```
+
+# Step 2
+Install Doom Emacs
+Install nerd-fonts

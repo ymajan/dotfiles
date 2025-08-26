@@ -10,3 +10,6 @@
 # Emacs projectile cache
 .projectile-cache.eld
 
+*.DS_Store
+
+doom/custom.el
