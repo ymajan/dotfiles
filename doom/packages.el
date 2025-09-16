@@ -10,6 +10,7 @@
 (package! pdf-tools)
 (package! djvu)
 (package! nov)
+(package! anki-editor-view)
 
 (package! nov-xwidget
   :recipe (:host github :repo "chenyanming/nov-xwidget"))

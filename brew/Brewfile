@@ -5,10 +5,16 @@ brew "clang-format"
 brew "coreutils"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # GNU compiler collection
 brew "gcc"
 # Distributed revision control system
 brew "git"
+# Enable transparent encryption/decryption of files in a git repo
+brew "git-crypt"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
 # Command-driven, interactive function plotting
 brew "gnuplot"
 # Graph visualization software from AT&T and Bell Labs
@@ -17,6 +23,8 @@ brew "graphviz"
 brew "node"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
+# Pinentry for GPG on Mac
+brew "pinentry-mac"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
 # Paste PNG into files
@@ -31,6 +39,8 @@ brew "shfmt"
 brew "stow"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Command-line interface to the WakaTime api
+brew "wakatime-cli"
 # YAMAMOTO Mitsuharu's Mac port of GNU Emacs
 brew "railwaycat/emacsmacport/emacs-mac@29", args: ["with-ctags", "with-dbus", "with-glib", "with-imagemagick", "with-librsvg", "with-mac-metal", "with-modern-icon", "with-native-compilation", "with-no-title-bars", "with-starter", "with-unlimited-select", "with-xwidgets"]
 # Application uninstaller

@@ -5,6 +5,7 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+(require 'org-protocol)
 
 ;; startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -12,7 +13,7 @@
 
 ;; initial variables
 (setq user-full-name "Jaynams Ahh"
-      doom-theme 'doom-henna
+      doom-theme 'doom-gruvbox
       custom-file (expand-file-name "custom.el" doom-user-dir)
       gc-cons-threshold (* 50 1000 1000))
 
@@ -20,12 +21,6 @@
   :config
   (setq auth-source-sources '("~/secrets/.authinfo.gpg")
         auth-source-cache-expiry 3600))
-
-;; load in elisp config files
-(load! "modules/org/note-taking")
-(load! "modules/org/org-mode")
-(load! "modules/os/macos-modifiers")
-(load! "modules/reference/ref-management")
 
 ;; def search
 (use-package deft
@@ -51,6 +46,11 @@
   :init
   (global-wakatime-mode))
 
+;; load in elisp config files
+(load! "modules/org-mode")
+(load! "modules/note-taking")
+(load! "modules/ref-management")
+(load! "modules/macos-modifiers")
 ;; no-byte-compile: t
 ;; End:
 

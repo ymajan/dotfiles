@@ -57,7 +57,7 @@
 ;; Set Default Anki Deck
 (defun ymajan/add-anki-deck-property ()
   (unless (string-match-p "Log" (buffer-file-name))
-    (org-set-property "ANKI_DECK" "Thoughts")))
+    (org-set-property "ANKI_DECK" "FAQ")))
 
 (add-hook 'org-roam-capture-new-node-hook #'ymajan/add-anki-deck-property)
 
@@ -93,3 +93,7 @@
 (use-package! pdf-tools
   :config
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode)))
+
+(use-package! anki-editor-view
+  :config
+  (setq anki-editor-view-files (list  (concat (file-name-as-directory org-roam-directory) "Thoughts")  )))
