@@ -25,11 +25,11 @@ jobs:
 
       - name: Build
         run: hugo --minify
-        working-directory: stow-away/site
+        working-directory: ./stow-away/ox-hugo-site
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: stow-away/site/public
+          publish_dir: ./stow-away/ox-hugo-site/public
