@@ -28,4 +28,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./stow-away/ox-hugo-site/public
-          cname: dots.ymajan.pw
