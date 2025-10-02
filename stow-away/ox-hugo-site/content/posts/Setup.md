@@ -1,11 +1,13 @@
 +++
-title = "MacOS"
+title = "Current Hardware and Setup Guides"
 author = ["Jaynams Ahh"]
-tags = ["macos"]
 draft = false
 +++
 
-## Setup {#setup}
+## Macbook Air M2 <span class="tag"><span class="macos">macos</span></span> {#macbook-air-m2}
+
+
+### Setup {#setup}
 
 1.  Sign into iCloud and Apple ID, enable telemetry and app store
 2.  Install [Homebrew](https://brew.sh/)
@@ -21,3 +23,4 @@ draft = false
     ```
 6.  Install [Cardo](https://cardo-podcast.github.io/) Podcast App
 7.  Install Claude Macos [Native Binary Install](https://docs.claude.com/en/docs/claude-code/setup)
+8.  Install Spreeder MacOS Desktop App [Spreeder Download Link](https://resources.ereflect.com/Spreeder/downloads/mac/home/Spreeder-21.0.0.dmg)

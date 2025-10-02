@@ -1,7 +1,10 @@
-* Systems
-** MacOS :macos:
+* Current Hardware and Setup Guides
 :PROPERTIES:
-:EXPORT_FILE_NAME: MacOS
+:EXPORT_FILE_NAME: Setup
+:END:
+** Macbook Air M2 :macos:
+:PROPERTIES:
+:OS:       MacOS
 :END:
 *** Setup
 1. Sign into iCloud and Apple ID, enable telemetry and app store
@@ -16,5 +19,11 @@
       #+begin_src bash
          cat /code/pipx-requirements.txt | xargs -I {} pipx install {}
       #+end_src
-7. Install [[https://cardo-podcast.github.io/][Cardo]] Podcast App
-8. Install Claude Macos [[https://docs.claude.com/en/docs/claude-code/setup][Native Binary Install]]
+6. Install [[https://cardo-podcast.github.io/][Cardo]] Podcast App
+7. Install Claude Macos [[https://docs.claude.com/en/docs/claude-code/setup][Native Binary Install]]
+8. Install Spreeder MacOS Desktop App [[https://resources.ereflect.com/Spreeder/downloads/mac/home/Spreeder-21.0.0.dmg][Spreeder Download Link]]
+* Software
+** Zotero
+:PROPERTIES:
+:OS:       MacOS
+:END:
