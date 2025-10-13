@@ -1,8 +1,8 @@
 ;; org-roam configuration
 (use-package org-roam
   :custom
-  (org-roam-db-location "~/Documents/Codex/Roameo/org-roam.db")
   (org-roam-directory (concat (file-name-as-directory org-directory) "Roameo"))
+  (org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory))
   (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Log"))
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere t)
@@ -20,64 +20,49 @@
       plain
       "%?"
       :target (file+head
-               "Thoughts/${citar-citekey}.org"
-               "#+title: ${note-title}
+               ;; could also be ${citar-citekey}
+               "${slug}.org"
+               ;; could also be ${note-title}
+               "#+title: ${title}
 #+filetags: :zotero:%(ymajan/citar-keywords-to-tags\"${citar-keywords}\")
 %(let ((url \"${citar-url}\"))
    (if (and url (not (string-empty-p url)))
        (concat \"#+url: \" url \"\n\")
        \"\"))")
       :unnarrowed t)
-     ("r" "web zettel, a wettel"
+     ("w" "web zettel, a wettel"
       plain
       "%?"
       :target (file+head
-               "Thoughts/${slug}.org"
+               "${slug}.org"
                "#+title: ${title}
 %(let ((url \"${citar-url}\"))
    (if (and url (not (string-empty-p url)))
        (concat \"#+url: \" url \"\n\")
        \"\"))")
       :unnarrowed t)
-     ("n" "org-roam note"
+     ("n" "note"
       plain
       "%?"
-      :target (file+head "Thoughts/${slug}.org"
+      :target (file+head "${slug}.org"
                          "#+title: ${title}")
       :unnarrowed t))))
 
-
-;; tag new nodes as zygoat if not a journal file
-(defun ymajan/tag-new-node-as-zygoat ()
-  (unless (string-match-p "Log" (buffer-file-name))
-    (org-roam-tag-add '("zygoat"))))
-
-(add-hook 'org-roam-capture-new-node-hook #'ymajan/tag-new-node-as-zygoat)
-
-;; Set Default Anki Deck
-(defun ymajan/add-anki-deck-property ()
-  (unless (string-match-p "Log" (buffer-file-name))
-    (org-set-property "ANKI_DECK" "FAQ")))
-
-(add-hook 'org-roam-capture-new-node-hook #'ymajan/add-anki-deck-property)
+;; OrgNote CLI syncing
+(use-package! orgnote
+  :defer t
+  :hook (org-mode . orgnote-sync-mode))
 
 
-(cl-defmethod org-roam-node-type ((node org-roam-node))
-  "Return the TYPE of NODE."
-  (condition-case nil
-      (file-name-nondirectory
-       (directory-file-name
-        (file-name-directory
-         (file-relative-name (org-roam-node-file node) org-roam-directory))))
-    (error "")))
-
+;; must have obvs
 (use-package org-noter
   :after (:all org pdf-tools djvu)
   :custom
-  (org-noter-notes-search-path (list (expand-file-name "Thoughts" org-roam-directory)))
-  (org-noter-default-notes-file-names '("deletemeyoufdup.org"))
+  (org-noter-notes-search-path (list org-roam-directory
+                                     (concat (file-name-as-directory org-directory) "Org-Noter")))
+  (org-noter-auto-save-last-location t)
+  (org-noter-default-notes-file-names '("notes.org" "iwannadieyoudidmewrong.org"))
   ;; (org-noter-always-create-frame nil)
-  ;; (org-noter-auto-save-last-location t)
   ;; (org-noter-highlight-selected-text t)
   ;; (org-noter-insert-selected-text-inside-note t)
   ;; (org-noter-kill-frame-at-session-end nil)

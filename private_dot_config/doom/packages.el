@@ -20,10 +20,5 @@
   :recipe (:host github :repo "jethrokuan/mathpix.el" :branch "master"))
 (package! anki-editor
   :recipe (:host github :repo "anki-editor/anki-editor"))
-(package! wakatime-mode
-  :recipe (:host github :repo "wakatime/wakatime-mode"))
-;; PAST used packages
-;; (package! loglink
-;;   :recipe (:host github :repo "ymajan/loglink" :branch "main")) ;; logseq org-roam integration was a lil too buggy, possibility in the future
-
-;; (package! org-caldav) ;; can be buggy at times
+(package! orgnote
+  :recipe (:host github :repo "artawower/orgnote.el"))

@@ -1,0 +1,8 @@
+(setq org-directory 
+      {{ if eq .chezmoi.hostname "jaybun" }}
+      "/media/jay/Data/Nextcloud/Documents/Codex/"
+      {{ else if eq .chezmoi.hostname "personal-laptop" }}
+      "~/Documents/personal-org/"
+      {{ else }}
+      "~/org/"  ; default fallback
+      {{ end }})

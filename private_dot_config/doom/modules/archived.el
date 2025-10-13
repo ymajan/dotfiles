@@ -57,3 +57,27 @@
       :files ("~/Documents/Codex/Org/GTD/archive/incubated.org")
       :inbox "~/Documents/Codex/Org/GTD/incubator.org")
      )))
+
+;; tag new nodes as zygoat if not a journal file
+(defun ymajan/tag-new-node-as-zygoat ()
+  (unless (string-match-p "Log" (buffer-file-name))
+    (org-roam-tag-add '("zygoat"))))
+
+(add-hook 'org-roam-capture-new-node-hook #'ymajan/tag-new-node-as-zygoat)
+
+;; Set Default Anki Deck
+(defun ymajan/add-anki-deck-property ()
+  (unless (string-match-p "Log" (buffer-file-name))
+    (org-set-property "ANKI_DECK" "FAQ")))
+
+(add-hook 'org-roam-capture-new-node-hook #'ymajan/add-anki-deck-property)
+
+;; helps finding node if organized by folder
+(cl-defmethod org-roam-node-type ((node org-roam-node))
+  "Return the TYPE of NODE."
+  (condition-case nil
+      (file-name-nondirectory
+       (directory-file-name
+        (file-name-directory
+         (file-relative-name (org-roam-node-file node) org-roam-directory))))
+    (error "")))

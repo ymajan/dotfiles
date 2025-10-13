@@ -1,8 +1,6 @@
 ;; my org settings
 (use-package org
   :custom
-  ;; Set up directory and file paths first
-  (org-directory "~/Documents/Codex/")
   (org-id-locations-file (expand-file-name ".orgids" org-directory))
   (org-attach-id-dir (expand-file-name ".attach" org-directory))
   ;; GTD System
@@ -48,7 +46,7 @@
   ;; Change default prefix key; needs to be set before loading org-journal
   (setq org-journal-prefix-key "C-c j ")
   :config
-  (setq org-journal-dir (concat (file-name-as-directory org-directory) "Annals/")
+  (setq org-journal-dir (concat (file-name-as-directory org-directory) "Daily/")
         org-journal-file-type 'daily
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-date-format "%Y-%m-%d \n* Dreams\n* Gratitude"
