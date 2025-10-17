@@ -11,6 +11,7 @@
 (package! djvu)
 (package! nov)
 (package! anki-editor-view)
+(package! chezmoi)
 
 (package! nov-xwidget
   :recipe (:host github :repo "chenyanming/nov-xwidget"))
