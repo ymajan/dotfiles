@@ -27,11 +27,11 @@ jobs:
           extended: true
       - name: Build
         run: hugo --minify
-        working-directory: ./stow-away/ox-hugo-site
+        working-directory: ./unmanaged/site
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./stow-away/ox-hugo-site/public
+          publish_dir: ./unmanaged/site/public
           cname: dots.ymajan.pw
