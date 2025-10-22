@@ -1,11 +1,10 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; start server for org-protocol and other services
+;; start server for org-protocol and efficiency
 (setq debug-on-error t)
 (require 'server)
 (unless (server-running-p)
   (server-start))
-(require 'org-protocol)
 ;; startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (load! "modules/path_templates.el")

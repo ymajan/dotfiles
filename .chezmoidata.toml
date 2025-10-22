@@ -1,0 +1,14 @@
+# .chezmoidata.toml with hostname detection
+{{- $org_directory := "" -}}
+
+{{- if eq .chezmoi.hostname "work-macbook" -}}
+{{-   $org_directory = "~/Work/org" -}}
+{{- else if eq .chezmoi.hostname "personal-mac" -}}
+{{-   $org_directory = "~/Documents/org" -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-   $org_directory = "C:/Users/ymajan/Documents/org" -}}
+{{- else -}}
+{{-   $org_directory = "~/org" -}}
+{{- end -}}
+
+org_directory = {{ $org_directory | quote }}

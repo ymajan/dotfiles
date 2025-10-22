@@ -1,0 +1,31 @@
+[user]
+    name = {{ .name | quote }}
+    email = {{ .email | quote }}
+    
+[core]
+{{- if eq .chezmoi.os "windows" }}
+    autocrlf = true              # Convert LF to CRLF on checkout, CRLF to LF on commit
+    symlinks = true              # Enable symlinks (requires admin rights on Windows)
+    longpaths = true             # Support paths longer than 260 characters
+    filemode = false             # Ignore file permission changes
+{{- else }}
+    autocrlf = input             # Convert CRLF to LF on commit only
+    filemode = true              # Track file permission changes
+{{- end }}
+    pager = less -FRX
+    whitespace = trailing-space,space-before-tab,tab-in-indent
+    quotepath = false            # Display non-ASCII filenames properly
+
+[init]
+    defaultBranch = main
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --oneline --graph --decorate
+    last = log -1 HEAD
+
+[color]
+    ui = auto
