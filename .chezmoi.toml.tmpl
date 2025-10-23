@@ -1,8 +1,19 @@
-[git]
-    autoCommit = true
-    autoPush = true
+# chezmoi init configures ~/.config/chezmoi/chezmoi.toml
 
+# Platform-specific data that supplements .chezmoidata.toml
 [data]
-    name = "ymajan"
-    email = "github@jaynam.me"
-    editor = "emacsclient"
+    # Org-mode directories for each platform
+    {{ if eq .chezmoi.hostname "thinkwin" -}}
+    orgDirectory = "D:/Documents/org"
+    {{ else if eq .chezmoi.hostname "bunboot" -}} # ubuntu
+    orgDirectory = "/Users/{{ .chezmoi.username }}/Documents/org"
+    orgdirectory = "/media/{{ .chezmoi.username }}/Data/Nextcloud/Documents/Codex"
+    {{ else -}}  # Linux / General
+    orgDirectory = "/home/{{ .chezmoi.username }}/Documents/org"
+    {{ end -}}
+
+
+# Git configuration for auto-commit/push by chezmoi
+[git]
+    autoCommit = false
+    autoPush = false
