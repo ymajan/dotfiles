@@ -12,6 +12,7 @@
 (package! nov)
 (package! anki-editor-view)
 (package! chezmoi)
+(package! toml)
 
 (package! nov-xwidget
   :recipe (:host github :repo "chenyanming/nov-xwidget"))

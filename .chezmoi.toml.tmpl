@@ -10,9 +10,3 @@
     {{ else -}}  # Linux / General
     orgDirectory = "/home/{{ .chezmoi.username }}/Documents/org"
     {{ end -}}
-
-
-# Git configuration for auto-commit/push by chezmoi
-[git]
-    autoCommit = false
-    autoPush = false

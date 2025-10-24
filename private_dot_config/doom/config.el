@@ -7,7 +7,14 @@
   (server-start))
 ;; startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-(load! "modules/path_templates.el")
+
+(use-package toml
+  :demand t
+  :config
+  (let* ((config (toml:read-from-file "~/.config/chezmoi/chezmoi.toml"))
+         (org-dir (alist-get 'orgdirectory (alist-get 'data config))))
+    (setq org-directory org-dir)))
+
 ;; initial variables
 (setq user-full-name "Jaynam Shah"
       doom-theme 'doom-gruvbox
@@ -38,4 +45,3 @@
 (load! "modules/macos-modifiers")
 ;; no-byte-compile: t
 ;; End:
-
