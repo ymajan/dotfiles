@@ -1,7 +1,6 @@
 baseURL = 'https://dots.ymajan.pw'
 languageCode = 'en-us'
 title = 'Dotfiles for Jaynam Shah'
-theme = 'github.com/panr/hugo-theme-terminal'
 
 [module]
   [[module.imports]]
