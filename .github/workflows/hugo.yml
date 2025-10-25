@@ -33,5 +33,5 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./unmanaged/site/public
+          publish_dir: ./unmanaged/ox-hugo-site/public
           cname: dots.ymajan.pw
