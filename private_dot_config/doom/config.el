@@ -5,18 +5,21 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
 ;; startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+;; define org-directory based on chezmoi.toml generated differently for each machine
 (use-package toml
   :demand t
   :config
   (let* ((config (toml:read-from-file "~/.config/chezmoi/chezmoi.toml"))
-         (org-dir (alist-get 'orgdirectory (alist-get 'data config))))
+         (org-dir (cdr (assoc "orgdirectory" 
+                              (cdr (assoc "data" config))))))
     (setq org-directory org-dir)))
 
 ;; initial variables
-(setq user-full-name "Jaynam Shah"
+(setq user-full-name "ymajan"
       doom-theme 'doom-gruvbox
       custom-file (expand-file-name "custom.el" doom-user-dir)
       gc-cons-threshold (* 50 1000 1000))
@@ -29,19 +32,11 @@
   (deft-recursive t)
   (deft-auto-save-interval 0))
 
-(use-package mathpix.el
-  :custom ((mathpix-app-id "ymajan_65b9d5_450ec8")
-           (mathpix-app-key "6eb175690078af2324a400af580c6f9a9ce7a117ce3b4be685a82197352f9c55"))
-  :bind
-  ("C-x m" . mathpix-screenshot))
+(use-package ox-hugo)
 
-;; anki-editor provides better media support
-(use-package! anki-editor)
 
 ;; load in elisp config files
-(load! "modules/org-mode")
-(load! "modules/note-taking")
-(load! "modules/ref-management")
+(load! "modules/org-mode") 
 (load! "modules/macos-modifiers")
 ;; no-byte-compile: t
 ;; End:

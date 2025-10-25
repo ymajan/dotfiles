@@ -1,14 +1,15 @@
 ;; org-roam configuration
 (use-package org-roam
+  :defer t
   :custom
   (org-roam-directory (concat (file-name-as-directory org-directory) "Roameo"))
   (org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory))
-  (org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "Log"))
+  (org-roam-dailies-directory org-journal-dir) ;; outside the org-roam-directory
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere t)
   (org-roam-db-update-on-save t)
   (org-roam-link-auto-replace t)
-  (org-roam-node-display-template (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-node-display-template "${title:60} ${tags:*}")
   (org-roam-dailies-capture-templates
    '(("d" "default" entry
       "* %?"
@@ -24,7 +25,7 @@
                "${slug}.org"
                ;; could also be ${note-title}
                "#+title: ${title}
-#+filetags: :zotero:%(ymajan/citar-keywords-to-tags\"${citar-keywords}\")
+#+filetags: %(ymajan/citar-keywords-to-tags\"${citar-keywords}\")
 %(let ((url \"${citar-url}\"))
    (if (and url (not (string-empty-p url)))
        (concat \"#+url: \" url \"\n\")
@@ -48,37 +49,5 @@
                          "#+title: ${title}")
       :unnarrowed t))))
 
-;; OrgNote CLI syncing
-(use-package! orgnote
-  :defer t
-  :hook (org-mode . orgnote-sync-mode))
-
-
-;; must have obvs
-(use-package org-noter
-  :after (:all org pdf-tools djvu)
-  :custom
-  (org-noter-notes-search-path (list org-roam-directory
-                                     (concat (file-name-as-directory org-directory) "Org-Noter")))
-  (org-noter-auto-save-last-location t)
-  (org-noter-default-notes-file-names '("notes.org" "iwannadieyoudidmewrong.org"))
-  ;; (org-noter-always-create-frame nil)
-  ;; (org-noter-highlight-selected-text t)
-  ;; (org-noter-insert-selected-text-inside-note t)
-  ;; (org-noter-kill-frame-at-session-end nil)
-  ;; (org-noter-insert-note-no-questions t)
-  (org-noter-doc-split-fraction '(0.6 . 0.4)))
-
-(use-package! nov
-  :config
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  (setq nov-text-width 80)
-  (setq nov-text-size 1.0))
-
-(use-package! pdf-tools
-  :config
-  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode)))
-
-(use-package! anki-editor-view
-  :config
-  (setq anki-editor-view-files (list  (concat (file-name-as-directory org-roam-directory) "Thoughts")  )))
+(load! "roam-support.el")
+(load! "ref-management")
