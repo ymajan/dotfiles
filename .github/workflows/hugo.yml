@@ -26,7 +26,7 @@ jobs:
           hugo-version: 'latest'
           extended: true
       - name: Build
-        run: hugo --minify --baseURL "https://dots.ymajan.pw/"
+        run: hugo --minify
         working-directory: ./unmanaged/ox-hugo-site
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
