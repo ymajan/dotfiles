@@ -1,29 +1,7 @@
-* Current Hardware and Setup Guides
+#+hugo_base_dir: ../
+
+* DONE My first post :tag1:@category1:
 :PROPERTIES:
-:EXPORT_FILE_NAME: Setup
+:EXPORT_FILE_NAME: my-first-post
 :END:
-** Macbook Air M2 :macos:
-:PROPERTIES:
-:OS:       MacOS
-:END:
-*** Setup
-1. Sign into iCloud and Apple ID, enable telemetry and app store
-2. Install [[https://brew.sh/][Homebrew]]
-   #+begin_src bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   #+end_src
-3. Sign into Github Desktop and clone this repo to ~/dotfiles
-4. cd code directory and install everything with `brew bundle`
-   this will include App Store Apps via mas-cli
-5. install pipx packages
-      #+begin_src bash
-         cat /code/pipx-requirements.txt | xargs -I {} pipx install {}
-      #+end_src
-6. Install [[https://cardo-podcast.github.io/][Cardo]] Podcast App
-7. Install Claude Macos [[https://docs.claude.com/en/docs/claude-code/setup][Native Binary Install]]
-8. Install Spreeder MacOS Desktop App [[https://resources.ereflect.com/Spreeder/downloads/mac/home/Spreeder-21.0.0.dmg][Spreeder Download Link]]
-* Software
-** Zotero
-:PROPERTIES:
-:OS:       MacOS
-:END:
+This is my post body, testing gh branch page
