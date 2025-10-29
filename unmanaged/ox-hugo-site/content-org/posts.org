@@ -5,7 +5,7 @@
 :EXPORT_FILE_NAME: my-first-post
 :END:
 This is my post body, testing gh branch page
-* DONE Second Post Test
+* DONE Second Post Test :tag2:@category1:
 :PROPERTIES:
 :EXPORT_FILE_NAME: sec-post
 :END:
