@@ -58,7 +58,7 @@ brew "wakatime-cli"
 # Simple hotkey daemon for macOS, written in Zig
 brew "jackielii/tap/skhd-zig"
 # YAMAMOTO Mitsuharu's Mac port of GNU Emacs
-brew "railwaycat/emacsmacport/emacs-mac@29", args: ["with-ctags", "with-dbus", "with-glib", "with-imagemagick", "with-librsvg", "with-mac-metal", "with-modern-icon", "with-native-compilation", "with-no-title-bars", "with-starter", "with-unlimited-select", "with-xwidgets"]
+brew "railwaycat/emacsmacport/emacs-mac@29", args: ["with-dbus", "with-glib", "with-imagemagick", "with-librsvg", "with-mac-metal", "with-modern-icon", "with-native-compilation", "with-no-title-bars", "with-starter", "with-unlimited-select", "with-xwidgets"]
 # Time tracker
 cask "activitywatch"
 # Memory training application
