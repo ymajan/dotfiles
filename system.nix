@@ -1,6 +1,12 @@
 { self, ... }: {
   system.primaryUser = "ymajan";
 
+  networking = {
+    computerName = "Geekbook";
+    hostName = "geekbook";
+    localHostName = "geekbook";
+  };
+
   nix.enable = false;
 
   users.users.ymajan = {

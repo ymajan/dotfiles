@@ -1,9 +1,10 @@
 { ... }: {
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
+    onActivation.cleanup = "none";
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
+    enableZshIntegration = true;
 
     taps = [
       "railwaycat/emacsmacport"
@@ -17,75 +18,84 @@
       "exiftool"
       "ansible"
       "rclone"
+      "bitwarden-cli"
     ];
 
     casks = [
-      "railwaycat/emacsmacport/emacs-mac-spacemacs-icon"
-      "firefox"
-      "claude"
-      "claude-code"
-      "spotify"
+      # archive
+      # "eqmac"
+      #"seadrive"
+      #"mullvad-browser"
+      #"floorp"
+      #"opencloud"
+      # "firefox"
+      # "claude"
+      # "claude-code"
+      # "ibkr" hella glitchy
+      #"trader-workstation"
+      #"xnviewmp"
+      #"iina"
+      #"transmission"
+      #"comet"
+      #"antigravity"
+      #"thunderbird"
+      #"steam"
+      #"orion"
+      #"zed"
+      #"logmein-hamachi"
+      #"logmein-client"
+      #"microsoft-outlook"
+      #"readdle-spark" # didn't accept JSI
+      # "protonvpn"
+      # "proton-drive"
+      # "proton-mail"
+      # "proton-mail-bridge"
+      # "microsoft-office" - Word, Excel, PowerPoint, Outlook, OneNote, and OneDrive altogether
+      # "google-chrome" actively mining you - use helium
+      # "activitywatch"
       "discord"
+      "railwaycat/emacsmacport/emacs-mac-spacemacs-icon"
+      "anki"
+      "anydesk"
+      "spotify"
+      "keka"
       "proton-pass"
-      "protonvpn"
-      "proton-drive"
-      "proton-mail"
-      "proton-mail-bridge"
       "whatsapp"
-      "activitywatch"
       "dana-dex"
       "onlyoffice"
       "finetune"
-      # "google-chrome" actively mining you - use helium
       "appcleaner"
-      "eqmac"
       "seafile-client"
-      "seadrive"
-      # "ibkr" hella glitchy
-      "trader-workstation"
-      "anydesk"
-      "xnviewmp"
-      "iina"
-      "transmission"
-      "antigravity"
       "github"
-      "comet"
       "beekeeper-studio"
-      "thunderbird"
-      "steam"
-      "helium-browser"
-      "orion"
       "vscodium"
-      "zed"
-      "logmein-hamachi"
-      "logmein-client"
+      "waterfox"
+      "helium-browser"
       "slack"
-      # "microsoft-office" - Word, Excel, PowerPoint, Outlook, OneNote, and OneDrive altogether
       "microsoft-word"
       "microsoft-excel"
       "microsoft-powerpoint"
       "microsoft-teams"
-      "microsoft-outlook"
       "zoom"
       "homerow"
-      "waterfox"
-      "zen"
-      "mullvad-browser"
-      "floorp"
-      "opencloud"
       "obsidian"
       "chatgpt"
-      "readdle-spark" # didn't accept JSI
-      "bitwarden"
+      "codex"
+      "claude"
+      "google-gemini"
+      "mailspring"
+      "y3owk1n/tap/neru"
+      "chroncal"
     ];
 
     masApps = {
       "KDE Connect" = 1580245991;
-      "Perplexity: Ask Anything" = 6714467650;
-      "Emotiv" = 6483688285;
-      "Emotiv Studio" = 6751176117;
-      "Canary Mail App" = 1236045954;
-      "Dove - AI Email" = 6749230975;
+      #"Perplexity: Ask Anything" = 6714467650;
+      #"Emotiv" = 6483688285;
+      #"Emotiv Studio" = 6751176117;
+      #"Canary Mail App" = 1236045954;
+      #"Dove - AI Email" = 6749230975;
+      "Bitwarden" = 1352778147;
     };
   };
 }
