@@ -1,4 +1,8 @@
 { config, pkgs, ... }: {
+  imports = [
+    ./ssh.nix
+  ];
+
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
