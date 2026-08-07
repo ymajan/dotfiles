@@ -44,7 +44,6 @@
       #"zed"
       #"logmein-hamachi"
       #"logmein-client"
-      #"microsoft-outlook"
       #"readdle-spark" # didn't accept JSI
       # "protonvpn"
       # "proton-drive"
@@ -53,6 +52,7 @@
       # "microsoft-office" - Word, Excel, PowerPoint, Outlook, OneNote, and OneDrive altogether
       # "google-chrome" actively mining you - use helium
       # "activitywatch"
+      "microsoft-outlook"
       "discord"
       "railwaycat/emacsmacport/emacs-mac-spacemacs-icon"
       "anki"
