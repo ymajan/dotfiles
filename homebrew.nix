@@ -52,6 +52,7 @@
       # "microsoft-office" - Word, Excel, PowerPoint, Outlook, OneNote, and OneDrive altogether
       # "google-chrome" actively mining you - use helium
       # "activitywatch"
+      "localsend"
       "microsoft-outlook"
       "discord"
       "railwaycat/emacsmacport/emacs-mac-spacemacs-icon"
@@ -86,6 +87,7 @@
       "mailspring"
       "y3owk1n/tap/neru"
       "chroncal"
+      "roblox"
     ];
 
     masApps = {
