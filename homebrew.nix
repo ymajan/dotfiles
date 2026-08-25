@@ -33,7 +33,7 @@
       # "claude-code"
       # "ibkr" hella glitchy
       #"trader-workstation"
-      #"xnviewmp"
+      "xnviewmp"
       #"iina"
       #"transmission"
       #"comet"
