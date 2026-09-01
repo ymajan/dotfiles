@@ -15,10 +15,11 @@
       "node"
       "firefoxpwa"
       "awscli"
-      "exiftool"
+      # "exiftool"
       "ansible"
       "rclone"
       "bitwarden-cli"
+      "ollama"
     ];
 
     casks = [
@@ -88,6 +89,7 @@
       "y3owk1n/tap/neru"
       "chroncal"
       "roblox"
+      "hermes-desktop"
     ];
 
     masApps = {
