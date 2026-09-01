@@ -19,6 +19,7 @@
       "ansible"
       "rclone"
       "bitwarden-cli"
+      "ollama"
     ];
 
     casks = [
