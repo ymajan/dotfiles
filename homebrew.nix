@@ -19,7 +19,6 @@
       "ansible"
       "rclone"
       "bitwarden-cli"
-      "ollama"
     ];
 
     casks = [
@@ -86,7 +85,6 @@
       "claude"
       "google-gemini"
       "mailspring"
-      "y3owk1n/tap/neru"
       "chroncal"
       "roblox"
     ];
