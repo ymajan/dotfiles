@@ -62,7 +62,6 @@
       "keka"
       "proton-pass"
       "whatsapp"
-      "dana-dex"
       "onlyoffice"
       "finetune"
       "appcleaner"
@@ -86,7 +85,6 @@
       "google-gemini"
       "mailspring"
       "chroncal"
-      "roblox"
     ];
 
     masApps = {
@@ -96,7 +94,8 @@
       #"Emotiv Studio" = 6751176117;
       #"Canary Mail App" = 1236045954;
       #"Dove - AI Email" = 6749230975;
-      "Bitwarden" = 1352778147;
+      "Bitwarden" = 1352778147; # macos got better ssh and auth connectivity
+      "WiFi Signal: Strength Analyzer" = 525912054;
     };
   };
 }
