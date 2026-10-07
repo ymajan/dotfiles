@@ -67,6 +67,7 @@
       "localsend"
       "nimble-commander"
       "seafile-client"
+      "transmission"
 
       # Audio, video & gaming
       "finetune"
