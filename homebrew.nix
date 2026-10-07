@@ -55,6 +55,7 @@
       "anki"
       "obsidian"
       "zotero"
+      # Testing
 
       # Tasks & productivity
       "activitywatch"
