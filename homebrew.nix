@@ -55,7 +55,6 @@
       "anki"
       "obsidian"
       "zotero"
-      # Testing
 
       # Tasks & productivity
       "activitywatch"
@@ -68,8 +67,6 @@
       "localsend"
       "nimble-commander"
       "seafile-client"
-      "tagspaces"
-      "transmission"
 
       # Audio, video & gaming
       "finetune"
