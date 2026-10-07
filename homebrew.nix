@@ -13,78 +13,73 @@
     brews = [
       "mas"
       "node"
-      "firefoxpwa"
       "awscli"
-      # "exiftool"
-      "ansible"
       "rclone"
       "bitwarden-cli"
     ];
 
     casks = [
-      # archive
-      # "eqmac"
-      #"seadrive"
-      #"mullvad-browser"
-      #"floorp"
-      #"opencloud"
-      # "firefox"
-      # "claude"
-      # "claude-code"
-      # "ibkr" hella glitchy
-      #"trader-workstation"
-      "xnviewmp"
-      #"iina"
-      #"transmission"
-      #"comet"
-      #"antigravity"
-      #"thunderbird"
-      #"steam"
-      #"orion"
-      #"zed"
-      #"logmein-hamachi"
-      #"logmein-client"
-      #"readdle-spark" # didn't accept JSI
-      # "protonvpn"
-      # "proton-drive"
-      # "proton-mail"
-      # "proton-mail-bridge"
-      # "microsoft-office" - Word, Excel, PowerPoint, Outlook, OneNote, and OneDrive altogether
-      # "google-chrome" actively mining you - use helium
-      # "activitywatch"
-      "localsend"
-      "microsoft-outlook"
-      "discord"
-      "railwaycat/emacsmacport/emacs-mac-spacemacs-icon"
-      "anki"
-      "anydesk"
-      "spotify"
-      "keka"
-      "proton-pass"
-      "whatsapp"
-      "onlyoffice"
-      "finetune"
-      "appcleaner"
-      "seafile-client"
-      "github"
-      "beekeeper-studio"
-      "vscodium"
-      "waterfox"
+      # Browsers
       "helium-browser"
+      "mullvad-browser"
+      "waterfox"
+
+      # Editors & development
+      "beekeeper-studio"
+      "github"
+      "railwaycat/emacsmacport/emacs-mac-spacemacs-icon"
+      "vscodium"
+
+      # AI assistants
+      "chatgpt"
+      "google-gemini"
+
+      # Messaging & meetings
+      "discord"
+      "microsoft-teams"
       "slack"
-      "microsoft-word"
+      "whatsapp"
+      "zoom"
+
+      # Email
+      "mailspring"
+      "microsoft-outlook"
+
+      # Office & documents
       "microsoft-excel"
       "microsoft-powerpoint"
-      "microsoft-teams"
-      "zoom"
-      "homerow"
+      "microsoft-word"
+      "onlyoffice"
+
+      # Notes, research & learning
+      "anki"
       "obsidian"
-      "chatgpt"
-      "codex"
-      "claude"
-      "google-gemini"
-      "mailspring"
-      "chroncal"
+      "zotero"
+
+      # Tasks & productivity
+      "activitywatch"
+      "chiri"
+      "homerow"
+      "keycombiner"
+
+      # File management, transfer & sync
+      "keka"
+      "localsend"
+      "nimble-commander"
+      "seafile-client"
+      "tagspaces"
+      "transmission"
+
+      # Audio, video & gaming
+      "finetune"
+      "iina"
+      "spotify"
+      "steam"
+
+      # System, remote access & device utilities
+      "altserver"
+      "anydesk"
+      "appcleaner"
     ];
 
     masApps = {
@@ -95,7 +90,6 @@
       #"Canary Mail App" = 1236045954;
       #"Dove - AI Email" = 6749230975;
       "Bitwarden" = 1352778147; # macos got better ssh and auth connectivity
-      "WiFi Signal: Strength Analyzer" = 525912054;
     };
   };
 }
